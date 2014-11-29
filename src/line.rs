@@ -12,6 +12,10 @@ pub enum WinnerResult {
     NoWinner,
 }
 
+pub fn has_winner_line(players: [Player, ..3]) -> WinnerResult {
+    has_winner(new(players[0], players[1], players[2]))
+}
+
 pub fn has_winner(line: Line) -> WinnerResult {
     match line {
         Line(Player::X, Player::X, Player::X) => WinnerResult::Winner(Player::X),

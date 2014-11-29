@@ -8,8 +8,8 @@ pub fn empty() -> [Player, ..9] {
 }
 
 pub fn is_finished(board: [Player, ..9]) -> bool {
-    for column in columns(board).iter() {
-        match line::has_winner(*column) {
+    for column in all_lines(board).into_iter() {
+        match line::has_winner_line(column) {
             WinnerResult::Winner(_) => return true,
             WinnerResult::NoWinner  => continue,
         }
@@ -17,8 +17,25 @@ pub fn is_finished(board: [Player, ..9]) -> bool {
     false
 }
 
-fn columns(board: [Player, ..9]) -> [Line,..3] {
-    [line::new(board[0], board[1], board[2]),
-     line::new(board[3], board[4], board[5]),
-     line::new(board[6], board[7], board[8]) ]
+fn all_lines(board: [Player,..9]) ->Vec<[Player,..3]> {
+    let mut lines:Vec<[Player, ..3]> = Vec::new();
+    lines.push_all(&rows(board));
+    lines.push_all(&columns(board));
+    lines
+}
+
+fn rows(board: [Player, ..9]) -> [[Player, ..3], ..3]  {
+    [of(board, 0, 1 ,2),
+     of(board, 3, 4 ,5),
+     of(board, 6, 7 ,8)]
+}
+
+fn columns(board: [Player, ..9]) -> [[Player, ..3], ..3]  {
+    [of(board, 0, 3 ,6),
+     of(board, 1, 4 ,7),
+     of(board, 2, 5 ,8)]
+}
+
+fn of(board: [Player, ..9], first: uint, second: uint, third: uint) -> [Player, ..3] {
+    [board[first], board[second], board[third]]
 }
