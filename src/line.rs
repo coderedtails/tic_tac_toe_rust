@@ -16,6 +16,8 @@ pub enum WinnerResult {
 
 pub trait Winnable {
     fn winner(&self) -> WinnerResult;
+    fn is_winner(&self, player: &Player) -> bool;
+    fn no_winner(&self) -> bool;
 }
 
 impl Winnable for Line {
@@ -26,19 +28,19 @@ impl Winnable for Line {
             Line(_,_,_) => WinnerResult::NoWinner,
         }
     }
-}
 
-pub fn is_winner_of_line(line: Line, player: Player) -> bool {
-    match line.winner() {
-        WinnerResult::Winner(n) if n == player => true,
-        _ => false,
+    fn is_winner(&self, player: &Player) -> bool {
+        match self.winner() {
+            WinnerResult::Winner(n) if n == *player => true,
+            _ => false,
+        }
     }
-}
-
-pub fn has_no_winner(line: Line) -> bool {
-    match line.winner() {
-        WinnerResult::NoWinner => true,
-        _ => false,
+    
+    fn no_winner(&self) -> bool {
+        match self.winner() {
+            WinnerResult::NoWinner => true,
+            _ => false,
+        }
     }
 }
 
