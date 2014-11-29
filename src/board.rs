@@ -12,11 +12,12 @@ pub fn is_finished(board: [Player, ..9]) -> bool {
 }
 
 pub fn remaining_moves(board: [Player,..9]) -> Vec<uint> {
-    board.iter().enumerate().filter_map(|(idx, &player)| player_to_index(idx,player)) .collect()
+    board.iter().enumerate().filter_map(player_to_index).collect()
 }
 
-fn player_to_index(idx: uint, player: Player) -> Option<uint> {
-    match player {
+fn player_to_index(pair: (uint, &Player)) -> Option<uint> {
+    let (idx, player) = pair;
+    match *player {
         Player::Empty => Some(idx),
         _             => None,
     }
