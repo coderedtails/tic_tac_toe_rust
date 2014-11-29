@@ -8,8 +8,13 @@ pub fn empty() -> [Player, ..9] {
 }
 
 pub fn is_finished(board: [Player, ..9]) -> bool {
-    has_winner(board) || remaining_moves(board).is_empty()
+    has_winner(board) || has_draw(board)
 }
+
+pub fn has_draw(board: [Player, ..9]) -> bool {
+    !has_winner(board) && remaining_moves(board).is_empty()
+}
+
 
 pub fn remaining_moves(board: [Player,..9]) -> Vec<uint> {
     board.iter().enumerate().filter_map(player_to_index).collect()
