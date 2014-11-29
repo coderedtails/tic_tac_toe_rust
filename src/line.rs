@@ -1,5 +1,7 @@
+#[deriving(Clone)]
 pub struct Line(Player, Player, Player);
 
+#[deriving(Clone)]
 #[deriving(PartialEq)]
 pub enum Player {
     X,
@@ -12,15 +14,11 @@ pub enum WinnerResult {
     NoWinner,
 }
 
-pub fn has_winner_line(players: [Player, ..3]) -> WinnerResult {
-    has_winner(new(players[0], players[1], players[2]))
-}
-
 pub fn has_winner(line: Line) -> WinnerResult {
     match line {
         Line(Player::X, Player::X, Player::X) => WinnerResult::Winner(Player::X),
         Line(Player::O, Player::O, Player::O) => WinnerResult::Winner(Player::O),
-        Line(_,_,_)                           => WinnerResult::NoWinner,
+        Line(_,_,_) => WinnerResult::NoWinner,
     }
 }
 
@@ -44,8 +42,4 @@ pub fn empty() -> Line {
 
 pub fn new(first: Player, second: Player, third: Player) -> Line {
     Line(first, second, third)
-}
-
-pub fn of_slice(players: &[Player]) -> Line {
-    new(players[0], players[1], players[2])
 }
