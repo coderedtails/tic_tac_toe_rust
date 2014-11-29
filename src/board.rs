@@ -1,5 +1,4 @@
 use line;
-use line::Line;
 use line::Player;
 use line::WinnerResult;
 
@@ -14,7 +13,6 @@ pub fn is_finished(board: [Player, ..9]) -> bool {
 pub fn has_draw(board: [Player, ..9]) -> bool {
     !has_winner(board) && remaining_moves(board).is_empty()
 }
-
 
 pub fn remaining_moves(board: [Player,..9]) -> Vec<uint> {
     board.iter().enumerate().filter_map(player_to_index).collect()

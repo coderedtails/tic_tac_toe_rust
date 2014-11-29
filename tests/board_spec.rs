@@ -51,7 +51,7 @@ fn full_board_with_draw_is_finished() {
 fn amount_of_remaining_moves_matches_number_of_empty() {
     let board = tic_tac_toe::board::empty();
     let remaining_moves = tic_tac_toe::board::remaining_moves(board);
-    assert!(remaining_moves.len() == 9)
+    assert_eq!(remaining_moves, vec![0u,1,2,3,4,5,6,7,8])
 }
 
 #[test]
