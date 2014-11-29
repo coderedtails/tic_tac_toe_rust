@@ -41,3 +41,7 @@ pub fn empty() -> Line {
 pub fn new(first: Player, second: Player, third: Player) -> Line {
     Line(first, second, third)
 }
+
+pub fn of_slice(players: &[Player]) -> Line {
+    new(players[0], players[1], players[2])
+}
