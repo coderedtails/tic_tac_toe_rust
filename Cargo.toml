@@ -4,5 +4,3 @@ name = "tic_tac_toe"
 version = "0.0.1"
 authors = ["Felipe Sere <felipesere@gmail.com>"]
 
-[dependencies]
-stainless = "~0.0.3"

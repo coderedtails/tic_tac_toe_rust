@@ -1,12 +1,4 @@
 [root]
 name = "tic_tac_toe"
 version = "0.0.1"
-dependencies = [
- "stainless 0.0.3 (registry+https://github.com/rust-lang/crates.io-index)",
-]
-
-[[package]]
-name = "stainless"
-version = "0.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
 

@@ -23,7 +23,6 @@ impl Board {
     }
 }
 
-
 pub fn empty() -> Board {
     Board{ marks: [Player::Empty,..9]}
 }
