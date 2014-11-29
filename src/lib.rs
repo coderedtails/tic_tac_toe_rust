@@ -21,6 +21,20 @@ pub mod line {
         }
     }
 
+    pub fn is_winner_of_line(line: Line, player: Player) -> bool {
+        match has_winner(line) {
+            WinnerResult::Winner(n) if n == player => true,
+            _ => false,
+        }
+    }
+
+    pub fn has_no_winner(line: Line) -> bool {
+        match has_winner(line) {
+            WinnerResult::NoWinner => true,
+            _ => false,
+        }
+    }
+
     pub fn empty() -> Line {
         new(Player::Empty, Player::Empty, Player::Empty)
     }
