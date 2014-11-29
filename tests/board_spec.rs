@@ -5,6 +5,25 @@ extern crate tic_tac_toe;
 use tic_tac_toe::line::Player;
 
 #[test]
-fn lines_have_three_elements() {
-    let line = tic_tac_toe::line::new(Player::X, Player::X, Player::X);
+fn line_with_three_x_has_winner() {
+    let line  = tic_tac_toe::line::new(Player::X, Player::X, Player::X);
+    assert!(tic_tac_toe::line::has_winner(line));
+}
+
+#[test]
+fn line_with_three_o_has_winner() {
+    let line  = tic_tac_toe::line::new(Player::O, Player::O, Player::O);
+    assert!(tic_tac_toe::line::has_winner(line));
+}
+
+#[test]
+fn empty_line_has_no_winner() {
+    let line  = tic_tac_toe::line::empty();
+    assert!(!tic_tac_toe::line::has_winner(line));
+}
+
+#[test]
+fn mixed_line_has_no_winner() {
+    let line  = tic_tac_toe::line::new(Player::X, Player::O, Player::X);
+    assert!(!tic_tac_toe::line::has_winner(line))
 }
