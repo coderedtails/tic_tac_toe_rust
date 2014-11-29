@@ -3,8 +3,29 @@ use line::Player;
 use line::WinnerResult;
 use line::Winnable;
 
-pub fn empty() -> [Player, ..9] {
-    [Player::Empty,..9]
+pub struct Board {
+    marks: [Player,..9]
+}
+
+impl Board {
+    pub fn remaining_moves(&self) -> Vec<uint> {
+        remaining_moves(self.marks)
+    }
+
+    pub fn is_finished(&self) -> bool {
+        has_winner(self.marks) || has_draw(self.marks)
+    }
+
+    pub fn make_move(&self, location: uint, player: &Player) -> Board  {
+        let mut new_marks = self.marks.clone();
+        new_marks[location] = *player;
+        Board { marks: new_marks }
+    }
+}
+
+
+pub fn empty() -> Board {
+    Board{ marks: [Player::Empty,..9]}
 }
 
 pub fn is_finished(board: [Player, ..9]) -> bool {

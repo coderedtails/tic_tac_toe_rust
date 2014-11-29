@@ -7,7 +7,7 @@ use tic_tac_toe::line::Player;
 #[test]
 fn new_board_should_not_be_finished() {
     let board = tic_tac_toe::board::empty();
-    assert!(!tic_tac_toe::board::is_finished(board));
+    assert!(!board.is_finished());
 }
 
 #[test]
@@ -50,7 +50,7 @@ fn full_board_with_draw_is_finished() {
 #[test]
 fn amount_of_remaining_moves_matches_number_of_empty() {
     let board = tic_tac_toe::board::empty();
-    let remaining_moves = tic_tac_toe::board::remaining_moves(board);
+    let remaining_moves = board.remaining_moves();
     assert_eq!(remaining_moves, vec![0u,1,2,3,4,5,6,7,8])
 }
 
@@ -61,4 +61,12 @@ fn no_remaining_moves_when_the_board_is_full() {
                  Player::X, Player::X, Player::O];
     let remaining_moves = tic_tac_toe::board::remaining_moves(board);
     assert!(remaining_moves.is_empty())
+}
+
+#[test]
+fn making_a_move_return_a_fresh_copy() {
+    let board = tic_tac_toe::board::empty();
+    let changed_board = board.make_move(0, &Player::X);
+    let remaining_moves = changed_board.remaining_moves();
+    assert!(!remaining_moves.contains(&0u))
 }

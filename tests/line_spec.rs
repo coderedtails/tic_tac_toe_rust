@@ -4,7 +4,6 @@ extern crate tic_tac_toe;
 
 use tic_tac_toe::line::Player;
 use tic_tac_toe::line::Winnable;
-use tic_tac_toe::line;
 
 #[test]
 fn line_with_three_x_has_winner() {
