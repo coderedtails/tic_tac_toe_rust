@@ -1,6 +1,7 @@
 use line;
 use line::Player;
 use line::WinnerResult;
+use line::Winnable;
 
 pub fn empty() -> [Player, ..9] {
     [Player::Empty,..9]
@@ -28,7 +29,7 @@ fn player_to_index(pair: (uint, &Player)) -> Option<uint> {
 
 fn has_winner(board: [Player, ..9]) -> bool {
     for line in all_lines(board).into_iter() {
-        match line::has_winner(line) {
+        match line.winner() {
             WinnerResult::Winner(_) => return true,
             WinnerResult::NoWinner  => continue,
         }

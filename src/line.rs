@@ -14,23 +14,29 @@ pub enum WinnerResult {
     NoWinner,
 }
 
-pub fn has_winner(line: Line) -> WinnerResult {
-    match line {
-        Line(Player::X, Player::X, Player::X) => WinnerResult::Winner(Player::X),
-        Line(Player::O, Player::O, Player::O) => WinnerResult::Winner(Player::O),
-        Line(_,_,_) => WinnerResult::NoWinner,
+pub trait Winnable {
+    fn winner(&self) -> WinnerResult;
+}
+
+impl Winnable for Line {
+    fn winner(&self) -> WinnerResult {
+        match *self {
+            Line(Player::X, Player::X, Player::X) => WinnerResult::Winner(Player::X),
+            Line(Player::O, Player::O, Player::O) => WinnerResult::Winner(Player::O),
+            Line(_,_,_) => WinnerResult::NoWinner,
+        }
     }
 }
 
 pub fn is_winner_of_line(line: Line, player: Player) -> bool {
-    match has_winner(line) {
+    match line.winner() {
         WinnerResult::Winner(n) if n == player => true,
         _ => false,
     }
 }
 
 pub fn has_no_winner(line: Line) -> bool {
-    match has_winner(line) {
+    match line.winner() {
         WinnerResult::NoWinner => true,
         _ => false,
     }
