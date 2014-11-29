@@ -11,7 +11,7 @@ fn new_board_should_not_be_finished() {
 }
 
 #[test]
-fn board_with_three_x_in_top_should_be_finished() {
+fn board_with_three_x_in_top_is_finished() {
     let board = [Player::X, Player::X, Player::X,
                  Player::Empty, Player::Empty, Player::Empty,
                  Player::Empty, Player::Empty, Player::Empty];
@@ -20,7 +20,7 @@ fn board_with_three_x_in_top_should_be_finished() {
 }
 
 #[test]
-fn board_with_three_x_in_first_column_should_be_finished() {
+fn board_with_three_x_in_first_column_is_finished() {
     let board = [Player::X, Player::Empty, Player::Empty,
                  Player::X, Player::Empty, Player::Empty,
                  Player::X, Player::Empty, Player::Empty];
@@ -29,7 +29,7 @@ fn board_with_three_x_in_first_column_should_be_finished() {
 }
 
 #[test]
-fn board_with_three_x_in_first_diagonal_should_be_finished() {
+fn board_with_three_x_in_first_diagonal_is_finished() {
     let board = [Player::X, Player::Empty, Player::Empty,
                  Player::Empty, Player::X, Player::Empty,
                  Player::Empty, Player::Empty, Player::X];
@@ -64,7 +64,7 @@ fn no_remaining_moves_when_the_board_is_full() {
 }
 
 #[test]
-fn making_a_move_return_a_fresh_copy() {
+fn making_a_move_returns_a_fresh_copy() {
     let board = tic_tac_toe::board::empty();
     let changed_board = board.make_move(0, &Player::X);
     let remaining_moves = changed_board.remaining_moves();
