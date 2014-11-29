@@ -27,3 +27,12 @@ fn board_with_three_x_in_first_column_should_be_finished() {
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
+
+#[test]
+fn board_with_three_x_in_first_diagonal_should_be_finished() {
+    let board = [Player::X, Player::Empty, Player::Empty,
+                 Player::Empty, Player::X, Player::Empty,
+                 Player::Empty, Player::Empty, Player::X];
+
+    assert!(tic_tac_toe::board::is_finished(board));
+}

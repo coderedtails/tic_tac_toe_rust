@@ -21,6 +21,7 @@ fn all_lines(board: [Player,..9]) ->Vec<[Player,..3]> {
     let mut lines:Vec<[Player, ..3]> = Vec::new();
     lines.push_all(&rows(board));
     lines.push_all(&columns(board));
+    lines.push_all(&diagonals(board));
     lines
 }
 
@@ -34,6 +35,11 @@ fn columns(board: [Player, ..9]) -> [[Player, ..3], ..3]  {
     [of(board, 0, 3 ,6),
      of(board, 1, 4 ,7),
      of(board, 2, 5 ,8)]
+}
+
+fn diagonals(board: [Player, ..9]) -> [[Player, ..3], ..2]  {
+    [of(board, 0, 4 ,8),
+     of(board, 6, 4 ,2)]
 }
 
 fn of(board: [Player, ..9], first: uint, second: uint, third: uint) -> [Player, ..3] {
