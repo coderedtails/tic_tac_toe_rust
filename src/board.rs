@@ -8,8 +8,23 @@ pub fn empty() -> [Player, ..9] {
 }
 
 pub fn is_finished(board: [Player, ..9]) -> bool {
-    for column in all_lines(board).into_iter() {
-        match line::has_winner_line(column) {
+    has_winner(board) || remaining_moves(board).is_empty()
+}
+
+pub fn remaining_moves(board: [Player,..9]) -> Vec<uint> {
+    board.iter().enumerate().filter_map(|(idx, &player)| player_to_index(idx,player)) .collect()
+}
+
+fn player_to_index(idx: uint, player: Player) -> Option<uint> {
+    match player {
+        Player::Empty => Some(idx),
+        _             => None,
+    }
+}
+
+fn has_winner(board: [Player, ..9]) -> bool {
+    for line in all_lines(board).into_iter() {
+        match line::has_winner_line(line) {
             WinnerResult::Winner(_) => return true,
             WinnerResult::NoWinner  => continue,
         }
