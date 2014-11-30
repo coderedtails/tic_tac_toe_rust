@@ -2,11 +2,13 @@
 
 extern crate tic_tac_toe;
 
-use tic_tac_toe::io::CliSpy;
+use tic_tac_toe::io::cli_spy;
+use tic_tac_toe::io::Printer;
+
 #[test]
 fn line_with_three_x_has_winner() {
-    let line  = tic_tac_toe::line::new(Player::X, Player::X, Player::X);
-    assert!(line.is_winner(&Player::X));
-    assert!(!line.is_winner(&Player::O));
+    let spy = cli_spy::new();
+    spy.print("Hi there".to_string());
+    assert!("Hi there" == spy.last_line().as_slice());
 }
 

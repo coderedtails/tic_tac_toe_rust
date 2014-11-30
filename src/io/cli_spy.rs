@@ -1,25 +1,23 @@
-use std::cell::Cell;
+use std::cell::RefCell;
 use io::Printer;
-use io::Reader;
 
 pub struct CliSpy {
-    lastLine: Cell<String>
+   last: RefCell<String>
 }
 
 pub fn new() -> CliSpy {
-    CliSpy{ lastLine: Cell::new("".to_string()) }
+    CliSpy { last: RefCell::new("".to_string()) }
 }
 
 impl Printer for CliSpy {
-    fn print(&self, line: String) {
-        self.lastLine.set(line);
-    }
+  fn print(&self, line: String) {
+    *self.last.borrow_mut() = line;
+  }
 }
-
+  
 impl CliSpy {
-    fn last_line(&self) -> String {
-       self.lastLine.get()
-    }
+    pub fn last_line(&self) -> String { 
+        let result = self.last.borrow_mut().clone();
+        result
+  }
 }
-
-
