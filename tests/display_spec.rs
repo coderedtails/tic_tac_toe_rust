@@ -6,6 +6,14 @@ use tic_tac_toe::io;
 use tic_tac_toe::line::Player;
 
 #[test]
+fn prints_an_empty_row_of_board_based_on_a_slice() {
+    let line = Vec::from_fn(3,|_| Player::Empty);
+    let result = io::display::render_slice(&line);
+    let expeted = Vec::from_fn(3, |idx| format!("[{}]", idx).to_string());
+    assert_eq!(expeted, result);
+}
+
+#[test]
 fn prints_an_empty_row_of_board() {
     let line = [Player::Empty, Player::Empty, Player::Empty];
     let result = io::display::render_line(&line);
