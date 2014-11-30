@@ -20,6 +20,14 @@ pub trait Winnable {
     fn no_winner(&self) -> bool;
 }
 
+pub fn empty() -> Line {
+    new(Player::Empty, Player::Empty, Player::Empty)
+}
+
+pub fn new(first: Player, second: Player, third: Player) -> Line {
+    Line(first, second, third)
+}
+
 impl Winnable for Line {
     fn winner(&self) -> WinnerResult {
         match *self {
@@ -42,12 +50,4 @@ impl Winnable for Line {
             _ => false,
         }
     }
-}
-
-pub fn empty() -> Line {
-    new(Player::Empty, Player::Empty, Player::Empty)
-}
-
-pub fn new(first: Player, second: Player, third: Player) -> Line {
-    Line(first, second, third)
 }

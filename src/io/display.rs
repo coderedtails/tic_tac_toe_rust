@@ -1,7 +1,10 @@
 use line::Player;
 
 pub fn render_line(line: &[Player,..3]) -> String {
-    let transformed_line: Vec<String> = line.iter().enumerate().map(render_cell).collect();
+    let transformed_line: Vec<String> = line.iter()
+                                            .enumerate()
+                                            .map(render_cell)
+                                            .collect();
     transformed_line.connect("")
 }
 
