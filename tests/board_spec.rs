@@ -12,36 +12,36 @@ fn new_board_should_not_be_finished() {
 
 #[test]
 fn board_with_three_x_in_top_is_finished() {
-    let board = [Player::X, Player::X, Player::X,
-                 Player::Empty, Player::Empty, Player::Empty,
-                 Player::Empty, Player::Empty, Player::Empty];
+    let board = &[Player::X, Player::X, Player::X,
+                  Player::Empty, Player::Empty, Player::Empty,
+                  Player::Empty, Player::Empty, Player::Empty];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn board_with_three_x_in_first_column_is_finished() {
-    let board = [Player::X, Player::Empty, Player::Empty,
-                 Player::X, Player::Empty, Player::Empty,
-                 Player::X, Player::Empty, Player::Empty];
+    let board = &[Player::X, Player::Empty, Player::Empty,
+                  Player::X, Player::Empty, Player::Empty,
+                  Player::X, Player::Empty, Player::Empty];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn board_with_three_x_in_first_diagonal_is_finished() {
-    let board = [Player::X, Player::Empty, Player::Empty,
-                 Player::Empty, Player::X, Player::Empty,
-                 Player::Empty, Player::Empty, Player::X];
+    let board = &[Player::X, Player::Empty, Player::Empty,
+                  Player::Empty, Player::X, Player::Empty,
+                  Player::Empty, Player::Empty, Player::X];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn full_board_with_draw_is_finished() {
-    let board = [Player::X, Player::X, Player::O,
-                 Player::O, Player::O, Player::X,
-                 Player::X, Player::X, Player::O];
+    let board = &[Player::X, Player::X, Player::O,
+                  Player::O, Player::O, Player::X,
+                  Player::X, Player::X, Player::O];
 
     assert!(tic_tac_toe::board::is_finished(board));
     assert!(tic_tac_toe::board::has_draw(board));
@@ -56,9 +56,9 @@ fn amount_of_remaining_moves_matches_number_of_empty() {
 
 #[test]
 fn no_remaining_moves_when_the_board_is_full() {
-    let board = [Player::X, Player::X, Player::O,
-                 Player::O, Player::O, Player::X,
-                 Player::X, Player::X, Player::O];
+    let board = &[Player::X, Player::X, Player::O,
+                  Player::O, Player::O, Player::X,
+                  Player::X, Player::X, Player::O];
     let remaining_moves = tic_tac_toe::board::remaining_moves(board);
     assert!(remaining_moves.is_empty())
 }

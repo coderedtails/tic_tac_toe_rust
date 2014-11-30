@@ -4,7 +4,7 @@ pub fn render_slice(line: &Vec<Player>) -> Vec<String> {
      line.iter().enumerate().map(render_cell).collect()
 }
 
-pub fn render_line(line: &[Player,..3]) -> String {
+pub fn render_line(line: &[Player]) -> String {
     line.iter().enumerate().map(render_cell).collect::<Vec<String>>().concat()
 }
 

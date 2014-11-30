@@ -9,11 +9,11 @@ pub struct Board {
 
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        remaining_moves(self.marks)
+        remaining_moves(&self.marks)
     }
 
     pub fn is_finished(&self) -> bool {
-        has_winner(self.marks) || has_draw(self.marks)
+        has_winner(&self.marks) || has_draw(&self.marks)
     }
 
     pub fn make_move(&self, location: uint, player: &Player) -> Board  {
@@ -27,15 +27,15 @@ pub fn empty() -> Board {
     Board{ marks: [Player::Empty,..9]}
 }
 
-pub fn is_finished(board: [Player, ..9]) -> bool {
+pub fn is_finished(board: &[Player, ..9]) -> bool {
     has_winner(board) || has_draw(board)
 }
 
-pub fn has_draw(board: [Player, ..9]) -> bool {
+pub fn has_draw(board: &[Player]) -> bool {
     !has_winner(board) && remaining_moves(board).is_empty()
 }
 
-pub fn remaining_moves(board: [Player,..9]) -> Vec<uint> {
+pub fn remaining_moves(board: &[Player]) -> Vec<uint> {
     board.iter().enumerate().filter_map(player_to_index).collect()
 }
 
@@ -47,7 +47,7 @@ fn player_to_index(pair: (uint, &Player)) -> Option<uint> {
     }
 }
 
-fn has_winner(board: [Player, ..9]) -> bool {
+fn has_winner(board: &[Player]) -> bool {
     for line in all_lines(board).into_iter() {
         match line.winner() {
             WinnerResult::Winner(_) => return true,
@@ -57,7 +57,7 @@ fn has_winner(board: [Player, ..9]) -> bool {
     false
 }
 
-fn all_lines(board: [Player,..9]) ->Vec<line::Line> {
+fn all_lines(board: &[Player]) ->Vec<line::Line> {
     let mut lines:Vec<line::Line> = Vec::new();
     lines.push_all(&rows(board));
     lines.push_all(&columns(board));
@@ -65,23 +65,23 @@ fn all_lines(board: [Player,..9]) ->Vec<line::Line> {
     lines
 }
 
-fn rows(board: [Player, ..9]) -> [line::Line, ..3]  {
+fn rows(board: &[Player]) -> [line::Line, ..3]  {
     [of(board, 0, 1 ,2),
      of(board, 3, 4 ,5),
      of(board, 6, 7 ,8)]
 }
 
-fn columns(board: [Player, ..9]) -> [line::Line, ..3]  {
+fn columns(board: &[Player]) -> [line::Line, ..3]  {
     [of(board, 0, 3 ,6),
      of(board, 1, 4 ,7),
      of(board, 2, 5 ,8)]
 }
 
-fn diagonals(board: [Player, ..9]) -> [line::Line, ..2]  {
+fn diagonals(board: &[Player]) -> [line::Line, ..2]  {
     [of(board, 0, 4 ,8),
      of(board, 6, 4 ,2)]
 }
 
-fn of(board: [Player, ..9], first: uint, second: uint, third: uint) -> line::Line {
+fn of(board: &[Player], first: uint, second: uint, third: uint) -> line::Line {
     line::new(board[first], board[second], board[third])
 }
