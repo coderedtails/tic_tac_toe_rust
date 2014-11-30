@@ -1,5 +1,17 @@
+use io::Printer;
 use line::Player;
 use board::Board;
+
+pub struct Display<'a> {
+    pub cli: Box<Printer + 'a>
+}
+
+impl<'a> Display<'a> {
+    pub fn render(&self, board: Board) {
+        let lines = render(board);
+        self.cli.print(lines.connect("\n"))
+    }
+}
 
 pub fn render(board: Board) -> Vec<String> {
     let rows = board.rows();

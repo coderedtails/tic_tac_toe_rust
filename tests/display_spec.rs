@@ -3,7 +3,19 @@
 extern crate tic_tac_toe;
 
 use tic_tac_toe::io;
+use tic_tac_toe::io::display::Display;
 use tic_tac_toe::line::Player;
+
+#[ignore]
+#[test]
+fn prints_a_board_to_a_cli_spy() {
+    let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]".to_string();
+    let board = tic_tac_toe::board::empty();
+
+    let cli_spy = io::cli_spy::new();
+    let display = Display { cli: box cli_spy };
+    display.render(board);
+}
 
 #[test]
 fn prints_empty_board_into_strings_per_row() {

@@ -14,9 +14,9 @@ impl Printer for CliSpy {
     *self.last.borrow_mut() = line;
   }
 }
-  
+
 impl CliSpy {
-    pub fn last_line(&self) -> String { 
+    pub fn last_line(&self) -> String {
         let result = self.last.borrow_mut().clone();
         result
   }
