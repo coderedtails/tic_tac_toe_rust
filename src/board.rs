@@ -3,6 +3,8 @@ use line::Marker;
 use line::WinnerResult;
 use line::Winnable;
 
+#[deriving(Show)]
+#[deriving(Clone)]
 pub struct Board {
     marks: [Marker,..9]
 }

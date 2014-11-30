@@ -3,6 +3,7 @@ pub struct Line(Marker, Marker, Marker);
 
 #[deriving(Clone)]
 #[deriving(PartialEq)]
+#[deriving(Show)]
 pub enum Marker {
     X,
     O,
