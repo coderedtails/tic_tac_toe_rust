@@ -21,6 +21,11 @@ impl Board {
         new_marks[location] = *player;
         Board { marks: new_marks }
     }
+
+    pub fn rows(&self) -> Vec<&[Player]> {
+        let s: &[Player] = &self.marks;
+        s.chunks(3).collect()
+    }
 }
 
 pub fn empty() -> Board {

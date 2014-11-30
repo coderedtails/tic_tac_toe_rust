@@ -11,6 +11,21 @@ fn new_board_should_not_be_finished() {
 }
 
 #[test]
+fn a_board_has_multiple_rows() {
+    let first:  &[Player] = &empty_players();
+    let second: &[Player] = &empty_players();
+    let third:  &[Player] = &empty_players();
+    let result = vec![first, second, third];
+    let board = tic_tac_toe::board::empty();
+
+    assert!(board.rows() == result);
+}
+
+fn empty_players() -> [Player, ..3] {
+    [Player::Empty, Player::Empty, Player::Empty]
+}
+
+#[test]
 fn board_with_three_x_in_top_is_finished() {
     let board = &[Player::X, Player::X, Player::X,
                   Player::Empty, Player::Empty, Player::Empty,
