@@ -2,7 +2,7 @@
 
 extern crate tic_tac_toe;
 
-use tic_tac_toe::line::Player;
+use tic_tac_toe::line::Marker;
 
 #[test]
 fn new_board_should_not_be_finished() {
@@ -12,51 +12,51 @@ fn new_board_should_not_be_finished() {
 
 #[test]
 fn a_board_has_multiple_rows() {
-    let first:  &[Player] = &empty_players();
-    let second: &[Player] = &empty_players();
-    let third:  &[Player] = &empty_players();
+    let first:  &[Marker] = &empty_players();
+    let second: &[Marker] = &empty_players();
+    let third:  &[Marker] = &empty_players();
     let result = vec![first, second, third];
     let board = tic_tac_toe::board::empty();
 
     assert!(board.rows() == result);
 }
 
-fn empty_players() -> [Player, ..3] {
-    [Player::Empty, Player::Empty, Player::Empty]
+fn empty_players() -> [Marker, ..3] {
+    [Marker::Empty, Marker::Empty, Marker::Empty]
 }
 
 #[test]
 fn board_with_three_x_in_top_is_finished() {
-    let board = &[Player::X, Player::X, Player::X,
-                  Player::Empty, Player::Empty, Player::Empty,
-                  Player::Empty, Player::Empty, Player::Empty];
+    let board = &[Marker::X, Marker::X, Marker::X,
+                  Marker::Empty, Marker::Empty, Marker::Empty,
+                  Marker::Empty, Marker::Empty, Marker::Empty];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn board_with_three_x_in_first_column_is_finished() {
-    let board = &[Player::X, Player::Empty, Player::Empty,
-                  Player::X, Player::Empty, Player::Empty,
-                  Player::X, Player::Empty, Player::Empty];
+    let board = &[Marker::X, Marker::Empty, Marker::Empty,
+                  Marker::X, Marker::Empty, Marker::Empty,
+                  Marker::X, Marker::Empty, Marker::Empty];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn board_with_three_x_in_first_diagonal_is_finished() {
-    let board = &[Player::X, Player::Empty, Player::Empty,
-                  Player::Empty, Player::X, Player::Empty,
-                  Player::Empty, Player::Empty, Player::X];
+    let board = &[Marker::X, Marker::Empty, Marker::Empty,
+                  Marker::Empty, Marker::X, Marker::Empty,
+                  Marker::Empty, Marker::Empty, Marker::X];
 
     assert!(tic_tac_toe::board::is_finished(board));
 }
 
 #[test]
 fn full_board_with_draw_is_finished() {
-    let board = &[Player::X, Player::X, Player::O,
-                  Player::O, Player::O, Player::X,
-                  Player::X, Player::X, Player::O];
+    let board = &[Marker::X, Marker::X, Marker::O,
+                  Marker::O, Marker::O, Marker::X,
+                  Marker::X, Marker::X, Marker::O];
 
     assert!(tic_tac_toe::board::is_finished(board));
     assert!(tic_tac_toe::board::has_draw(board));
@@ -71,9 +71,9 @@ fn amount_of_remaining_moves_matches_number_of_empty() {
 
 #[test]
 fn no_remaining_moves_when_the_board_is_full() {
-    let board = &[Player::X, Player::X, Player::O,
-                  Player::O, Player::O, Player::X,
-                  Player::X, Player::X, Player::O];
+    let board = &[Marker::X, Marker::X, Marker::O,
+                  Marker::O, Marker::O, Marker::X,
+                  Marker::X, Marker::X, Marker::O];
     let remaining_moves = tic_tac_toe::board::remaining_moves(board);
     assert!(remaining_moves.is_empty())
 }
@@ -81,7 +81,7 @@ fn no_remaining_moves_when_the_board_is_full() {
 #[test]
 fn making_a_move_returns_a_fresh_copy() {
     let board = tic_tac_toe::board::empty();
-    let changed_board = board.make_move(0, &Player::X);
+    let changed_board = board.make_move(0, &Marker::X);
     let remaining_moves = changed_board.remaining_moves();
     assert!(!remaining_moves.contains(&0u))
 }

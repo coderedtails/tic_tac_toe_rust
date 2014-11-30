@@ -1,5 +1,5 @@
 use io::Printer;
-use line::Player;
+use line::Marker;
 use board::Board;
 
 pub struct Display<'a> {
@@ -25,14 +25,14 @@ pub fn render(board: Board) -> Vec<String> {
     result
 }
 
-pub fn render_line(line: &[Player], offset: uint) -> String {
+pub fn render_line(line: &[Marker], offset: uint) -> String {
     line.iter().enumerate()
                .map(|(idx, player)| render_cell((idx+offset, player)))
                .collect::<Vec<String>>()
                .concat()
 }
 
-pub fn render_cell(elements: (uint, &Player)) -> String {
+pub fn render_cell(elements: (uint, &Marker)) -> String {
     let (idx, player) = elements;
     let inner = player.to_string(idx);
     format!("[{}]", inner)
