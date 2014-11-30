@@ -6,13 +6,26 @@ use tic_tac_toe::io;
 use tic_tac_toe::line::Player;
 
 #[test]
-fn prints_a_board_into_strings_per_row() {
+fn prints_empty_board_into_strings_per_row() {
     let first  = "[0][1][2]".to_string();
     let second = "[3][4][5]".to_string();
     let third  = "[6][7][8]".to_string();
     let result: Vec<String> = vec![first, second, third];
 
     let board = tic_tac_toe::board::empty();
+    assert!(io::display::render(board) == result);
+}
+
+#[test]
+fn prints_non_empty_board_into_strings_per_row() {
+    let first  = "[X][1][2]".to_string();
+    let second = "[3][4][5]".to_string();
+    let third  = "[6][7][O]".to_string();
+    let result: Vec<String> = vec![first, second, third];
+
+    let board = tic_tac_toe::board::empty()
+                                    .make_move(0, &Player::X)
+                                    .make_move(8, &Player::O);
     assert!(io::display::render(board) == result);
 }
 
