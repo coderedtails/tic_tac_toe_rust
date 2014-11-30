@@ -34,9 +34,6 @@ pub fn render_line(line: &[Player], offset: uint) -> String {
 
 pub fn render_cell(elements: (uint, &Player)) -> String {
     let (idx, player) = elements;
-    match *player {
-        Player::X => "[X]".to_string(),
-        Player::O => "[O]".to_string(),
-        Player::Empty => format!("[{}]", idx).to_string(),
-    }
+    let inner = player.to_string(idx);
+    format!("[{}]", inner)
 }

@@ -9,6 +9,16 @@ pub enum Player {
     Empty,
 }
 
+impl Player {
+    pub fn to_string(&self, idx: uint) -> String {
+        match *self {
+            Player::X => "X".to_string(),
+            Player::O => "O".to_string(),
+            Player::Empty => format!("{}", idx).to_string(),
+        }
+    }
+}
+
 pub enum WinnerResult {
     Winner(Player),
     NoWinner,
@@ -28,6 +38,7 @@ pub fn new(first: Player, second: Player, third: Player) -> Line {
     Line(first, second, third)
 }
 
+
 impl Winnable for Line {
     fn winner(&self) -> WinnerResult {
         match *self {
@@ -43,7 +54,7 @@ impl Winnable for Line {
             _ => false,
         }
     }
-    
+
     fn no_winner(&self) -> bool {
         match self.winner() {
             WinnerResult::NoWinner => true,
