@@ -23,8 +23,7 @@ impl Board {
     }
 
     pub fn rows(&self) -> Vec<&[Player]> {
-        let s: &[Player] = &self.marks;
-        s.chunks(3).collect()
+        self.marks.chunks(3).collect()
     }
 }
 

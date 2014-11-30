@@ -1,11 +1,7 @@
 use line::Player;
 
-pub fn render_slice(line: &[Player]) -> Vec<String> {
-     line.iter().enumerate().map(render_cell).collect()
-}
-
 pub fn render_line(line: &[Player]) -> String {
-    render_slice(line).concat()
+    line.iter().enumerate().map(render_cell).collect::<Vec<String>>().concat()
 }
 
 pub fn render_cell(elements: (uint, &Player)) -> String {
