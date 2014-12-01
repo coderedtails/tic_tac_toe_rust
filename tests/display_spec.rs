@@ -13,8 +13,7 @@ fn prints_a_board_to_a_cli_spy() {
     let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]".to_string();
     let board = board::empty();
 
-    let cli_spy = io::cli_spy::new();
-    let display = Display { cli: box cli_spy };
+    let display = Display;
     display.render(board);
 }
 

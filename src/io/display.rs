@@ -2,14 +2,29 @@ use io::Printer;
 use core::marker::Marker;
 use core::board::Board;
 
-pub struct Display<'a> {
-    pub cli: Box<Printer + 'a>
-}
+use std::io;
 
-impl<'a> Display<'a> {
+pub struct Display;
+
+impl Display {
     pub fn render(&self, board: Board) {
         let lines = render(board);
-        self.cli.print(lines.connect("\n"))
+        println!("{}", lines.connect("\n"));
+    }
+
+    fn to_int(input: String) -> uint {
+        let raw: Option<uint> = from_str(input.as_slice().trim());
+
+        match raw {
+            Some(number) => number,
+            None => 100,
+        }
+    }
+
+    pub fn request_move(&self) -> uint {
+        println!("Choose move");
+        let input = io::stdin().read_line().ok().expect("Failed to read line");
+        Display::to_int(input)
     }
 }
 
