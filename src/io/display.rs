@@ -1,5 +1,5 @@
 use io::Printer;
-use line::Marker;
+use core::line::Marker;
 use core::board::Board;
 
 pub struct Display<'a> {

@@ -1,7 +1,7 @@
-use line;
-use line::Marker;
-use line::WinnerResult;
-use line::Winnable;
+use core::line;
+use core::line::Marker;
+use core::line::WinnerResult;
+use core::line::Winnable;
 
 #[deriving(Show)]
 #[deriving(Clone)]

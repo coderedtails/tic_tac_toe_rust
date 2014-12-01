@@ -4,7 +4,7 @@ extern crate tic_tac_toe;
 
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
-use tic_tac_toe::line::Marker;
+use tic_tac_toe::core::line::Marker;
 use tic_tac_toe::core::board;
 
 #[ignore]

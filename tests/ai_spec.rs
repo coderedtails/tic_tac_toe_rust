@@ -1,12 +1,10 @@
-#![feature(phase)]
-#[phase(plugin, link)] extern crate log;
 #[cfg(test)]
 
 extern crate tic_tac_toe;
 
 use tic_tac_toe::core::board;
 use tic_tac_toe::core::board::Board;
-use tic_tac_toe::line::Marker;
+use tic_tac_toe::core::line::Marker;
 use tic_tac_toe::players::ai;
 use tic_tac_toe::players::Player;
 
