@@ -3,8 +3,8 @@
 extern crate tic_tac_toe;
 
 use tic_tac_toe::core::line;
-use tic_tac_toe::core::line::Marker;
 use tic_tac_toe::core::line::Winnable;
+use tic_tac_toe::core::marker::Marker;
 
 #[test]
 fn line_with_three_x_has_winner() {

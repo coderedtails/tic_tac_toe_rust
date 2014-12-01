@@ -1,5 +1,5 @@
 use core::board::Board;
-use core::line::Marker;
+use core::marker::Marker;
 use players::Player;
 
 pub struct Ai {

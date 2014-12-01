@@ -1,24 +1,7 @@
+use core::marker::Marker;
+
 #[deriving(Clone)]
 pub struct Line(Marker, Marker, Marker);
-
-#[deriving(Clone)]
-#[deriving(PartialEq)]
-#[deriving(Show)]
-pub enum Marker {
-    X,
-    O,
-    Empty,
-}
-
-impl Marker {
-    pub fn to_string(&self, idx: uint) -> String {
-        match *self {
-            Marker::X => "X".to_string(),
-            Marker::O => "O".to_string(),
-            Marker::Empty => format!("{}", idx).to_string(),
-        }
-    }
-}
 
 pub enum WinnerResult {
     Winner(Marker),
