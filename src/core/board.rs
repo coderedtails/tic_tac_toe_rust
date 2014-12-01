@@ -19,6 +19,16 @@ impl Board {
         has_winner(&self.marks) || has_draw(&self.marks)
     }
 
+    pub fn is_winner(&self, player: &Marker) -> bool {
+        for line in all_lines(&self.marks).into_iter() {
+            match line.winner() {
+                WinnerResult::Winner(ref n) if n == player => return true,
+                _ => continue,
+            }
+        }
+        false
+    }
+
     pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
         let mut new_marks = self.marks.clone();
         new_marks[location] = *player;
@@ -29,9 +39,9 @@ impl Board {
         self.marks.chunks(3).collect()
     }
 
-    pub fn value(&self) -> uint {
+    pub fn value(&self) -> int {
         if has_winner(&self.marks) {
-            self.remaining_moves().len() + 1
+            (self.remaining_moves().len() + 1) as int
         } else {
             0
         }

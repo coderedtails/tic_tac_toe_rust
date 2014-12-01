@@ -91,7 +91,7 @@ fn making_a_move_returns_a_fresh_copy() {
 #[test]
 fn empty_board_has_a_value_of_0() {
     let board = board::empty();
-    assert_eq!(0u, board.value());
+    assert_eq!(0, board.value());
 }
 
 #[test]
@@ -100,7 +100,7 @@ fn board_with_winner_in_first_row_has_value_7() {
                   Marker::Empty, Marker::Empty, Marker::Empty,
                   Marker::Empty, Marker::Empty, Marker::Empty];
     let board = Board { marks: *marks };
-    assert_eq!(7u, board.value());
+    assert_eq!(7, board.value());
 }
 
 #[test]
@@ -110,5 +110,5 @@ fn board_with_draw_has_value_0() {
                   Marker::X, Marker::X, Marker::O];
 
     let board = Board { marks: *marks };
-    assert_eq!(0u, board.value());
+    assert_eq!(0, board.value());
 }
