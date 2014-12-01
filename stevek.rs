@@ -1,4 +1,4 @@
-2trait Player {
+pub trait Player {
     fn go();
 }
 
