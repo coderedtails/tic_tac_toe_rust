@@ -8,7 +8,13 @@ pub struct Ai {
 
 impl Player for Ai {
     fn make_move(&self, board: Board) -> Board{
-        board.clone()
+        board.make_move(0u, &self.name)
+    }
+}
+
+impl Ai {
+    pub fn best_move(&self, board: Board) -> uint {
+        1u
     }
 }
 

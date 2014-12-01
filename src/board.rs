@@ -5,8 +5,9 @@ use line::Winnable;
 
 #[deriving(Show)]
 #[deriving(Clone)]
+#[deriving(PartialEq)]
 pub struct Board {
-    marks: [Marker,..9]
+    pub marks: [Marker,..9]
 }
 
 impl Board {
