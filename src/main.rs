@@ -2,7 +2,7 @@ extern crate tic_tac_toe;
 
 use tic_tac_toe::io::cli;
 use tic_tac_toe::io::display::Display;
-use tic_tac_toe::board;
+use tic_tac_toe::core::board;
 
 fn main() {
     let cli = cli::new();

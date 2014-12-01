@@ -1,6 +1,6 @@
 use io::Printer;
 use line::Marker;
-use board::Board;
+use core::board::Board;
 
 pub struct Display<'a> {
     pub cli: Box<Printer + 'a>

@@ -1,4 +1,4 @@
-use board::Board;
+use core::board::Board;
 use line::Marker;
 use players::Player;
 

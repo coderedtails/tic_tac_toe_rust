@@ -5,12 +5,13 @@ extern crate tic_tac_toe;
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::line::Marker;
+use tic_tac_toe::core::board;
 
 #[ignore]
 #[test]
 fn prints_a_board_to_a_cli_spy() {
     let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]".to_string();
-    let board = tic_tac_toe::board::empty();
+    let board = board::empty();
 
     let cli_spy = io::cli_spy::new();
     let display = Display { cli: box cli_spy };
@@ -24,7 +25,7 @@ fn prints_empty_board_into_strings_per_row() {
     let third  = "[6][7][8]".to_string();
     let result: Vec<String> = vec![first, second, third];
 
-    let board = tic_tac_toe::board::empty();
+    let board = board::empty();
     assert!(io::display::render(board) == result);
 }
 
@@ -35,7 +36,7 @@ fn prints_non_empty_board_into_strings_per_row() {
     let third  = "[6][7][O]".to_string();
     let result: Vec<String> = vec![first, second, third];
 
-    let board = tic_tac_toe::board::empty()
+    let board = board::empty()
                                     .make_move(0, &Marker::X)
                                     .make_move(8, &Marker::O);
     assert!(io::display::render(board) == result);

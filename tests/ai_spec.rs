@@ -4,8 +4,8 @@
 
 extern crate tic_tac_toe;
 
-use tic_tac_toe::board;
-use tic_tac_toe::board::Board;
+use tic_tac_toe::core::board;
+use tic_tac_toe::core::board::Board;
 use tic_tac_toe::line::Marker;
 use tic_tac_toe::players::ai;
 use tic_tac_toe::players::Player;
