@@ -2,6 +2,9 @@ use core::board::Board;
 use core::marker::Marker;
 use players::Player;
 
+use std::cmp;
+use std::num::Int;
+
 pub struct Ai {
     name: Marker,
 }
@@ -15,14 +18,25 @@ impl Player for Ai {
 
 impl Ai {
     pub fn best_move(&self, board: Board) -> uint {
-        1u
+        let mut best_move = 0u;
+        let mut best_score: int = Int::min_value();
+        for m in board.remaining_moves().iter() {
+            let next_board = board.make_move(*m, &self.name);
+            let score = -Ai::negamax(next_board, best_score, 10, self.name.opponent());
+
+            if score > best_score {
+                best_score = score;
+                best_move = *m;
+            }
+        }
+        best_move
     }
 
     fn negamax(board: Board, alpha: int, beta: int, name: Marker) -> int {
         if board.is_finished() {
             Ai::value_of_board(board, name)
         } else {
-            1
+            Ai::score_unfinshed(board, alpha, beta, name)
         }
     }
 
@@ -35,10 +49,19 @@ impl Ai {
     }
 
     fn score_unfinshed(board: Board, alpha: int, beta: int, name: Marker) -> int {
-        let best_score = alpha;
+        let mut best_score = alpha;
+        let mut current_alpha = alpha;
         for m in board.remaining_moves().iter() {
+            let next_board = board.make_move(*m, &name);
+            let score = -Ai::negamax(next_board, -beta, -current_alpha, name.opponent());
+
+            best_score = cmp::max(best_score, score);
+            current_alpha = cmp::max(current_alpha, score);
+            if current_alpha > beta {
+                break;
+            }
         }
-        0
+        best_score
     }
 }
 
