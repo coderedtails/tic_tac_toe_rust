@@ -15,4 +15,12 @@ impl Marker {
             Marker::Empty => format!("{}", idx).to_string(),
         }
     }
+
+    pub fn opponent(&self) -> Marker {
+        match *self {
+            Marker::X => Marker::O,
+            Marker::O => Marker::X,
+            Marker::Empty => Marker::Empty,
+        }
+    }
 }
