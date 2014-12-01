@@ -58,3 +58,36 @@ fn ai_find_the_best_move_2() {
     let result = player.best_move(board);
     assert_eq!(result, 2u);
 }
+
+#[test]
+fn takes_corners() {
+    let player = ai::new(Marker::X);
+    let board = Board { marks: [Marker::O, Marker::Empty, Marker::Empty,
+                                Marker::Empty, Marker::O, Marker::Empty,
+                                Marker::Empty, Marker::Empty, Marker::X] };
+
+    let result = player.best_move(board);
+    assert_eq!(result, 2u);
+}
+
+#[test]
+fn takes_edges() {
+    let player = ai::new(Marker::X);
+    let board = Board { marks: [Marker::O, Marker::Empty, Marker::Empty,
+                                Marker::Empty, Marker::X, Marker::Empty,
+                                Marker::Empty, Marker::Empty, Marker::O] };
+
+    let result = player.best_move(board);
+    assert_eq!(result, 3u);
+}
+
+#[test]
+fn takes_top_left() {
+    let player = ai::new(Marker::X);
+    let board = Board { marks: [Marker::Empty, Marker::O, Marker::Empty,
+                                Marker::O, Marker::X, Marker::Empty,
+                                Marker::Empty, Marker::Empty, Marker::Empty] };
+
+    let result = player.best_move(board);
+    assert_eq!(result, 1u);
+}
