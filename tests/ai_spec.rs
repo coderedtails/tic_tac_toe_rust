@@ -11,6 +11,7 @@ use tic_tac_toe::players::ai;
 use tic_tac_toe::players::Player;
 
 
+#[ignore]
 #[test]
 fn ai_can_be_created_with_a_mark() {
     let player = ai::new(Marker::X);
@@ -41,7 +42,7 @@ fn ai_can_block_in_the_first_row() {
 }
 
 #[test]
-fn ai_find_the_best_move_itself() {
+fn ai_find_the_best_move_1() {
     let player = ai::new(Marker::X);
     let board = Board { marks: [Marker::O, Marker::Empty, Marker::O,
                                 Marker::Empty, Marker::Empty, Marker::Empty,
@@ -51,3 +52,14 @@ fn ai_find_the_best_move_itself() {
     assert_eq!(result, 1u);
 }
 
+#[ignore]
+#[test]
+fn ai_find_the_best_move_2() {
+    let player = ai::new(Marker::X);
+    let board = Board { marks: [Marker::O, Marker::O, Marker::Empty,
+                                Marker::Empty, Marker::Empty, Marker::Empty,
+                                Marker::Empty, Marker::Empty, Marker::Empty] };
+
+    let result = player.best_move(board);
+    assert_eq!(result, 2u);
+}

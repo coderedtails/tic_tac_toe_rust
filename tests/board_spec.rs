@@ -3,6 +3,7 @@
 extern crate tic_tac_toe;
 
 use tic_tac_toe::line::Marker;
+use tic_tac_toe::board::Board;
 
 #[test]
 fn new_board_should_not_be_finished() {
@@ -82,6 +83,31 @@ fn no_remaining_moves_when_the_board_is_full() {
 fn making_a_move_returns_a_fresh_copy() {
     let board = tic_tac_toe::board::empty();
     let changed_board = board.make_move(0, &Marker::X);
-    let remaining_moves = changed_board.remaining_moves();
-    assert!(!remaining_moves.contains(&0u))
+    assert!(!changed_board.remaining_moves().contains(&0u))
+    assert!(board.remaining_moves().contains(&0u))
+}
+
+#[test]
+fn empty_board_has_a_value_of_0() {
+    let board = tic_tac_toe::board::empty();
+    assert_eq!(0u, board.value());
+}
+
+#[test]
+fn board_with_winner_in_first_row_has_value_7() {
+    let marks = &[Marker::X, Marker::X, Marker::X,
+                  Marker::Empty, Marker::Empty, Marker::Empty,
+                  Marker::Empty, Marker::Empty, Marker::Empty];
+    let board = Board { marks: *marks };
+    assert_eq!(7u, board.value());
+}
+
+#[test]
+fn board_with_draw_has_value_0() {
+    let marks = &[Marker::X, Marker::X, Marker::O,
+                  Marker::O, Marker::O, Marker::X,
+                  Marker::X, Marker::X, Marker::O];
+
+    let board = Board { marks: *marks };
+    assert_eq!(0u, board.value());
 }

@@ -28,6 +28,14 @@ impl Board {
     pub fn rows(&self) -> Vec<&[Marker]> {
         self.marks.chunks(3).collect()
     }
+
+    pub fn value(&self) -> uint {
+        if has_winner(&self.marks) {
+            self.remaining_moves().len() + 1
+        } else {
+            0
+        }
+    }
 }
 
 pub fn empty() -> Board {
