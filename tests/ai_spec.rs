@@ -89,5 +89,5 @@ fn takes_top_left() {
                                 Marker::Empty, Marker::Empty, Marker::Empty] };
 
     let result = player.best_move(board);
-    assert_eq!(result, 1u);
+    assert_eq!(result, 0u);
 }

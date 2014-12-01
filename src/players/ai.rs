@@ -6,7 +6,7 @@ use std::cmp;
 use std::num::Int;
 
 pub struct Ai {
-    name: Marker,
+    pub name: Marker,
 }
 
 impl Player for Ai {
