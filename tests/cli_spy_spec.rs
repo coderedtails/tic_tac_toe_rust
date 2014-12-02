@@ -7,8 +7,11 @@ use tic_tac_toe::io::Printer;
 
 #[test]
 fn line_with_three_x_has_winner() {
-    let spy = cli_spy::new();
+    let mut  spy = cli_spy::new();
     spy.print("Hi there".to_string());
-    assert!("Hi there" == spy.last_line().as_slice());
+    match spy.last_line() {
+        Some(n) => assert_eq!("Hi there".to_string(), n),
+        None => panic!("No value"),
+    }
 }
 

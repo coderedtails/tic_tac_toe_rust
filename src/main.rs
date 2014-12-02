@@ -6,10 +6,12 @@ use tic_tac_toe::players::human::Human;
 use tic_tac_toe::players::Player;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::io::display::Display;
+use tic_tac_toe::io::cli;
 
 fn main() {
-    let display = Display;
     let first =  Ai { name: Marker::X };
+
+    let display = Display { cli: cli::new()};
     let second = Human { name: Marker::O, display: display };
     let players: [&Player,..2] = [&first, &second];
     let mut board = board::empty();

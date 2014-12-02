@@ -4,15 +4,17 @@ use core::board::Board;
 
 use std::io;
 
-pub struct Display;
+pub struct Display<P> {
+    pub cli: P
+}
 
-impl Display {
+impl<P: Printer> Display<P> {
     pub fn render(&self, board: Board) {
         let lines = render(board);
-        println!("{}", lines.connect("\n"));
+        self.cli.print(lines.connect("\n"));
     }
 
-    fn to_int(input: String) -> uint {
+    fn to_int(&self, input: String) -> uint {
         let raw: Option<uint> = from_str(input.as_slice().trim());
 
         match raw {
@@ -24,7 +26,7 @@ impl Display {
     pub fn request_move(&self) -> uint {
         println!("Choose move");
         let input = io::stdin().read_line().ok().expect("Failed to read line");
-        Display::to_int(input)
+        self.to_int(input)
     }
 }
 

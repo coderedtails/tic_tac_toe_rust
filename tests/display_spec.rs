@@ -4,17 +4,18 @@ extern crate tic_tac_toe;
 
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
+use tic_tac_toe::io::cli_spy;
 use tic_tac_toe::core::board;
 use tic_tac_toe::core::marker::Marker;
 
-#[ignore]
 #[test]
 fn prints_a_board_to_a_cli_spy() {
     let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]".to_string();
     let board = board::empty();
-
-    let display = Display;
+    let mut cli_spy = cli_spy::new();
+    let mut display = Display { cli: cli_spy };
     display.render(board);
+    //cli_spy.last_line();
 }
 
 #[test]

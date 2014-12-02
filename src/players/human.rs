@@ -1,15 +1,17 @@
 use core::board::Board;
 use core::marker::Marker;
 use players::Player;
+use io::cli::Cli;
+use io::Printer;
 
 use io::display::Display;
 
-pub struct Human {
+pub struct Human<P> {
     pub name: Marker,
-    pub display: Display,
+    pub display: Display<P>,
 }
 
-impl Player for Human {
+impl<P: Printer> Player for Human<P> {
     fn make_move(&self, board: Board) -> Board{
         let possible_moves = board.remaining_moves();
         let choice = self.display.request_move();
