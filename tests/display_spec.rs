@@ -58,21 +58,21 @@ fn empty() -> [Marker, ..3] {
 
 #[test]
 fn prints_player_x() {
-    let player = Marker::X;
-    let result = io::display::render_cell((0u, &player));
+    let input = (0u, &Marker::X);
+    let result = io::display::render_cell(input);
     assert_eq!("[X]".to_string(), result);
 }
 
 #[test]
 fn prints_player_o() {
-    let player = Marker::O;
-    let result = io::display::render_cell((0u,&player));
+    let input = (0u, &Marker::O);
+    let result = io::display::render_cell(input);
     assert_eq!("[O]".to_string(), result);
 }
 
 #[test]
 fn prints_index_when_empty() {
-    let player = Marker::Empty;
-    let result = io::display::render_cell((1u, &player));
+    let input = (1u, &Marker::Empty);
+    let result = io::display::render_cell(input);
     assert_eq!("[1]".to_string(), result);
 }
