@@ -1,12 +1,26 @@
 use players::Player;
-use std::cell::RefCell;
+use std::cell::Cell;
 
 pub struct GameMode<T:Player, R: Player> {
     pub first: T,
     pub second: R,
-    counter: RefCell<uint>,
+    counter: Cell<uint>,
+}
+
+impl<T:Player, R:Player> GameMode<T,R> {
+   pub fn next(&self) -> &Player {
+       let val: uint = self.counter.get();
+       let player: &Player = if val % 2 == 0 {
+           &self.first
+       } else {
+           &self.second
+        };
+
+        self.counter.set(val + 1);
+        player
+   }
 }
 
 pub fn new<T:Player, R: Player>(first: T, second: R) -> GameMode<T,R> {
-    GameMode { first: first, second: second, counter: RefCell::new(0u) }
+    GameMode { first: first, second: second, counter: Cell::new(0u) }
 }

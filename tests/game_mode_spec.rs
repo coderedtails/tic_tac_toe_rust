@@ -8,6 +8,7 @@ use tic_tac_toe::players::ai;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli::Cli;
+use tic_tac_toe::players::Player;
 
 #[test]
 fn can_be_created_with_two_ais() {
@@ -22,6 +23,8 @@ fn can_be_created_with_ai_and_human() {
     let ai = ai::new(Marker::O);
 
     let game_mode = game_mode::new(human,ai);
+    let p: &Player = game_mode.next();
+    //assert!( (&p as *const Player) ==  (&human as *const Player) );
 }
 
 
