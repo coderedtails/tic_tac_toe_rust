@@ -11,19 +11,16 @@ pub struct Game<P> {
 
 impl <P: IO>Game<P>{
     pub fn play<T: Player, R: Player>(&self, mode: GameMode<T,R>) {
-        let players: [&Player, ..2] = [&mode.first, &mode.second];
         let mut board = board::empty();
 
-        let mut idx = 0;
-        let mut current = players[idx % 2];
+        let mut current = mode.next();
         loop {
             self.display.render(board);
             board = current.make_move(board);
             if board.is_finished() {
                 break;
             }
-            idx += 1;
-            current = players[idx % 2];
+            current = mode.next();
         }
 
         self.display.render(board);
