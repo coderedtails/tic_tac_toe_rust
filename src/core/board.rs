@@ -20,13 +20,22 @@ impl Board {
     }
 
     pub fn is_winner(&self, player: &Marker) -> bool {
+        match self.winner() {
+            WinnerResult::Winner(ref n) if n == player => true,
+            _ => false,
+        }
+    }
+
+    pub fn winner(&self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
-            match line.winner() {
-                WinnerResult::Winner(ref n) if n == player => return true,
+            let result = line.winner();
+            match result {
+                WinnerResult::Winner(_) => return result,
                 _ => continue,
             }
         }
-        false
+        WinnerResult::NoWinner
+
     }
 
     pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
