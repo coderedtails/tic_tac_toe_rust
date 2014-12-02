@@ -8,11 +8,10 @@ pub enum Marker {
 }
 
 impl Marker {
-    pub fn to_string(&self, idx: uint) -> String {
+    pub fn as_string(&self, idx: uint) -> String {
         match *self {
-            Marker::X => "X".to_string(),
-            Marker::O => "O".to_string(),
             Marker::Empty => format!("{}", idx).to_string(),
+            _ => self.to_string(),
         }
     }
 

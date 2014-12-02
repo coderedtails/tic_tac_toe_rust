@@ -5,18 +5,50 @@ extern crate tic_tac_toe;
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli_spy;
+use tic_tac_toe::io::cli_spy::CliSpy;
 use tic_tac_toe::core::board;
+use tic_tac_toe::core::board::Board;
 use tic_tac_toe::core::marker::Marker;
+
+static BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 
 #[test]
 fn prints_a_board_to_a_cli_spy() {
-    let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]".to_string();
-    let board = board::empty();
+    let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]";
     let cli_spy = cli_spy::new();
     let mut display = Display { cli: cli_spy };
-    display.render(board);
-    match display.cli.last_line() {
-        Some(n) => assert_eq!(result, n),
+    display.render(BOARD);
+    assert_printed(&mut display.cli, result);
+}
+
+#[test]
+fn request_a_valid_move() {
+    let cli_spy = cli_spy::new_with_moves(vec!["1".to_string()]);
+    let mut display = Display { cli: cli_spy };
+    let result = display.request_move();
+    assert_eq!(result, 1);
+    assert_printed(&mut display.cli, "Choose move");
+}
+
+#[test]
+fn announces_x_as_the_winner() {
+    let cli_spy = cli_spy::new();
+    let mut display = Display { cli: cli_spy };
+    display.announce_winner(Marker::X);
+    assert_printed(&mut display.cli, "The winner was X");
+}
+
+#[test]
+fn announces_a_draw() {
+    let cli_spy = cli_spy::new();
+    let mut display = Display { cli: cli_spy };
+    display.announce_draw();
+    assert_printed(&mut display.cli, "There was a draw");
+}
+
+fn assert_printed(cli: &mut CliSpy, line: &str) {
+    match cli.last_line() {
+        Some(n) => assert_eq!(line.to_string(), n),
         None => panic!("No call to print happend!")
     }
 }
@@ -28,8 +60,7 @@ fn prints_empty_board_into_strings_per_row() {
     let third  = "[6][7][8]".to_string();
     let result: Vec<String> = vec![first, second, third];
 
-    let board = board::empty();
-    assert!(io::display::render(board) == result);
+    assert!(io::display::render(BOARD) == result);
 }
 
 #[test]
@@ -39,9 +70,7 @@ fn prints_non_empty_board_into_strings_per_row() {
     let third  = "[6][7][O]".to_string();
     let result: Vec<String> = vec![first, second, third];
 
-    let board = board::empty()
-                                    .make_move(0, &Marker::X)
-                                    .make_move(8, &Marker::O);
+    let board = board::empty() .make_move(0, &Marker::X).make_move(8, &Marker::O);
     assert!(io::display::render(board) == result);
 }
 

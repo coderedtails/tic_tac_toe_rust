@@ -18,6 +18,17 @@ impl<P: IO> Display<P> {
         self.to_int(input)
     }
 
+    pub fn announce_winner(&self, winner: Marker) {
+        match winner  {
+            Marker::Empty => panic!("Empty can not be the winner"),
+            _ => self.cli.print(winner_line(winner)),
+        }
+    }
+
+    pub fn announce_draw(&self) {
+        self.cli.print("There was a draw".to_string());
+    }
+
     fn to_int(&self, input: String) -> uint {
         let raw: Option<uint> = from_str(input.as_slice().trim());
 
@@ -26,6 +37,10 @@ impl<P: IO> Display<P> {
             None => 100,
         }
     }
+}
+
+fn winner_line(winner: Marker) -> String {
+    format!("The winner was {}", winner.to_string())
 }
 
 pub fn render(board: Board) -> Vec<String> {
@@ -49,6 +64,6 @@ pub fn render_line(line: &[Marker], offset: uint) -> String {
 
 pub fn render_cell(elements: (uint, &Marker)) -> String {
     let (idx, player) = elements;
-    let inner = player.to_string(idx);
+    let inner = player.as_string(idx);
     format!("[{}]", inner)
 }
