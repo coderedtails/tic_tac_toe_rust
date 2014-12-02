@@ -2,7 +2,7 @@ use std::cell::RefCell;
 use io::Printer;
 
 pub struct CliSpy {
-   last: RefCell<Vec<String>>
+   pub last: RefCell<Vec<String>>
 }
 
 pub fn new() -> CliSpy {

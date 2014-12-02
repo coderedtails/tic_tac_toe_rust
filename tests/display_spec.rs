@@ -15,7 +15,10 @@ fn prints_a_board_to_a_cli_spy() {
     let mut cli_spy = cli_spy::new();
     let mut display = Display { cli: cli_spy };
     display.render(board);
-    //cli_spy.last_line();
+    match display.cli.last_line() {
+        Some(n) => assert_eq!(result, n),
+        None => panic!("No call to print happend!")
+    }
 }
 
 #[test]
