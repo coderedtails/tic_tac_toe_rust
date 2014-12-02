@@ -1,9 +1,9 @@
+use io::display::Display;
 use core::board::Board;
 use core::marker::Marker;
 use players::Player;
 use io::IO;
 
-use io::display::Display;
 
 pub struct Human<P> {
     pub name: Marker,
