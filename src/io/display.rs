@@ -8,6 +8,15 @@ pub struct Display<P> {
 
 impl<P: IO> Display<P> {
     pub fn render(&self, board: Board) {
+        self.clear_screen();
+        self.draw_board(board);
+    }
+
+    fn clear_screen(&self) {
+        self.cli.print("\x1b[H\x1b[2J".to_string());
+    }
+
+    fn draw_board(&self, board: Board) {
         let lines = render(board);
         self.cli.print(lines.connect("\n"));
     }
