@@ -2,11 +2,20 @@ use std::cell::RefCell;
 use io::IO;
 
 pub struct CliSpy {
-   pub last: RefCell<Vec<String>>
+   pub last: RefCell<Vec<String>>,
+   pub moves: RefCell<Vec<String>>
 }
 
 pub fn new() -> CliSpy {
-    CliSpy { last: RefCell::new(Vec::new()) }
+    let moves = vec!["1".to_string()];
+    new_with_moves(moves)
+}
+
+pub fn new_with_moves(moves: Vec<String>) -> CliSpy {
+    CliSpy {
+              last: RefCell::new(Vec::new()),
+              moves: RefCell::new(moves),
+             }
 }
 
 impl IO for CliSpy {
@@ -15,7 +24,10 @@ impl IO for CliSpy {
   }
 
   fn read(&self) -> String {
-      "sentinel value".to_string()
+      match self.moves.borrow_mut().pop() {
+          Some(n) => n,
+          None => panic!("There was nothing to read!")
+      }
   }
 }
 
