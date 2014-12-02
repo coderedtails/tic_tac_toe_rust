@@ -2,10 +2,7 @@ pub mod display;
 pub mod cli;
 pub mod cli_spy;
 
-pub trait Printer {
+pub trait IO {
     fn print(&self, line: String);
-}
-
-pub trait Reader {
-    fn read_line(&self) -> uint;
+    fn read(&self) -> String;
 }

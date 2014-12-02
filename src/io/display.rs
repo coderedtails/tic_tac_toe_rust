@@ -1,17 +1,21 @@
-use io::Printer;
+use io::IO;
 use core::marker::Marker;
 use core::board::Board;
-
-use std::io;
 
 pub struct Display<P> {
     pub cli: P
 }
 
-impl<P: Printer> Display<P> {
+impl<P: IO> Display<P> {
     pub fn render(&self, board: Board) {
         let lines = render(board);
         self.cli.print(lines.connect("\n"));
+    }
+
+    pub fn request_move(&self) -> uint {
+        self.cli.print("Choose move".to_string());
+        let input = self.cli.read();
+        self.to_int(input)
     }
 
     fn to_int(&self, input: String) -> uint {
@@ -21,12 +25,6 @@ impl<P: Printer> Display<P> {
             Some(number) => number,
             None => 100,
         }
-    }
-
-    pub fn request_move(&self) -> uint {
-        println!("Choose move");
-        let input = io::stdin().read_line().ok().expect("Failed to read line");
-        self.to_int(input)
     }
 }
 

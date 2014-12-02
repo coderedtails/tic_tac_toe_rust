@@ -3,7 +3,7 @@
 extern crate tic_tac_toe;
 
 use tic_tac_toe::io::cli_spy;
-use tic_tac_toe::io::Printer;
+use tic_tac_toe::io::IO;
 
 #[test]
 fn line_with_three_x_has_winner() {
