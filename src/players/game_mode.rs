@@ -38,13 +38,15 @@ pub fn new<'a>(first: Box<Player + 'a>, second: Box<Player + 'a>) -> GameMode<'a
 
 pub fn choose_game_mode<'a>(display: Display<Cli>) -> GameMode<'a> {
     let possible_modes = create_game_modes(display);
+    display.show_options(&possible_modes);
+    let choice = display.request_mode();
 
-    possible_modes[0]
+    possible_modes[choice]
 }
 
 pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
     [human_vs_human(display),
-     ai_vs_ai(display),
+     ai_vs_ai(),
      human_vs_ai(display),
      ai_vs_human(display)]
 }
@@ -67,7 +69,7 @@ fn human_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
     new(box human1,box human2)
 }
 
-fn ai_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {
+pub fn ai_vs_ai<'a>() -> GameMode<'a> {
     let ai1 = Ai { name: Marker::X};
     let ai2 = Ai { name: Marker::O};
     new(box ai1,box ai2)

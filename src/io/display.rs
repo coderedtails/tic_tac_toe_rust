@@ -1,6 +1,7 @@
 use io::IO;
 use core::marker::Marker;
 use core::board::Board;
+use players::game_mode::GameMode;
 
 use ansi_term::Colour::{Red, Blue, White};
 
@@ -26,7 +27,6 @@ impl<P: IO> Display<P> {
     }
 
     pub fn request_move(&self) -> uint {
-
         self.cli.print("Choose move");
         let input = self.cli.read();
         self.to_int(input)
@@ -41,6 +41,23 @@ impl<P: IO> Display<P> {
 
     pub fn announce_draw(&self) {
         self.cli.print("There was a draw");
+    }
+
+    pub fn show_options<'a>(&self, modes: &[GameMode<'a>, ..4]) {
+        for (idx, mode) in modes.iter().enumerate() {
+            self.show_option(mode, idx);
+        }
+    }
+
+    pub fn show_option<'a>(&self, modes: &GameMode<'a>, idx: uint) {
+        let line = format!("{}: {}", idx, modes.opponents_line());
+        self.cli.print(line.as_slice());
+    }
+
+    pub fn request_mode(&self) -> uint {
+        self.cli.print("Choose game mode:");
+        let input = self.cli.read();
+        self.to_int(input)
     }
 
     fn to_int(&self, input: String) -> uint {
