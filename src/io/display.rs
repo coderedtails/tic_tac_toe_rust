@@ -2,12 +2,16 @@ use io::IO;
 use core::marker::Marker;
 use core::board::Board;
 
+use ansi_term::Colour::{Red, Blue, White};
+
 pub struct Display<P> {
-    pub cli: P
+    pub cli: P,
+    pub use_colour: bool,
+
 }
 
 impl<P: IO> Display<P> {
-    pub fn render(&self, board: Board) {
+    pub fn draw(&self, board: Board) {
         self.clear_screen();
         self.draw_board(board);
     }
@@ -17,11 +21,12 @@ impl<P: IO> Display<P> {
     }
 
     fn draw_board(&self, board: Board) {
-        let lines = render(board);
+        let lines = self.render(board);
         self.cli.print(lines.connect("\n").as_slice());
     }
 
     pub fn request_move(&self) -> uint {
+
         self.cli.print("Choose move");
         let input = self.cli.read();
         self.to_int(input)
@@ -30,7 +35,7 @@ impl<P: IO> Display<P> {
     pub fn announce_winner(&self, winner: Marker) {
         match winner  {
             Marker::Empty => panic!("Empty can not be the winner"),
-            _ => self.cli.print(winner_line(winner).as_slice()),
+            _ => self.cli.print(self.winner_line(winner).as_slice()),
         }
     }
 
@@ -46,33 +51,46 @@ impl<P: IO> Display<P> {
             None => 100,
         }
     }
-}
 
-fn winner_line(winner: Marker) -> String {
-    format!("The winner was {}", winner.to_string())
-}
-
-pub fn render(board: Board) -> Vec<String> {
-    let rows = board.rows();
-    let mut result = Vec::new();
-    let mut offset = 0u;
-    for row in rows.iter() {
-        let line = render_line(*row, offset);
-        offset += 3;
-        result.push(line);
+    fn winner_line(&self, winner: Marker) -> String {
+        format!("The winner was {}", winner.to_string())
     }
-    result
-}
 
-pub fn render_line(line: &[Marker], offset: uint) -> String {
-    line.iter().enumerate()
-               .map(|(idx, player)| render_cell((idx+offset, player)))
-               .collect::<Vec<String>>()
-               .concat()
-}
+    fn render(&self, board: Board) -> Vec<String> {
+        let rows = board.rows();
+        let mut result = Vec::new();
+        let mut offset = 0u;
+        for row in rows.iter() {
+            let line = self.render_line(*row, offset);
+            offset += 3;
+            result.push(line);
+        }
+        result
+    }
 
-pub fn render_cell(elements: (uint, &Marker)) -> String {
-    let (idx, player) = elements;
-    let inner = player.as_string(idx);
-    format!("[{}]", inner)
+    fn render_line(&self, line: &[Marker], offset: uint) -> String {
+        line.iter().enumerate()
+            .map(|(idx, player)| self.render_cell((idx+offset, player)))
+            .collect::<Vec<String>>()
+            .concat()
+    }
+
+    pub fn render_cell(&self, elements: (uint, &Marker)) -> String {
+        let (idx, player) = elements;
+        let inner = if self.use_colour  {
+            self.render_colour_cell(idx, *player)
+        } else {
+            player.as_string(idx)
+        };
+        format!("[{}]", inner)
+    }
+
+    pub fn render_colour_cell(&self, idx: uint, player: Marker) -> String {
+        let inner = player.as_string(idx);
+        match player {
+            Marker::X => format!("{}", Red.paint(inner.as_slice())),
+            Marker::O => format!("{}", Blue.paint(inner.as_slice())),
+            Marker::Empty => format!("{}", White.paint(inner.as_slice())),
+        }
+    }
 }

@@ -24,9 +24,7 @@ pub fn board_from_str(input: &str) -> Board {
 
         board = board.make_move(idx, &marker);
     }
-
     board
-
 }
 
 fn assert_printed(cli: &mut CliSpy, line: &str) {
@@ -38,12 +36,11 @@ fn assert_printed(cli: &mut CliSpy, line: &str) {
 
 fn create_spy_display() -> Display<CliSpy> {
     let cli_spy = cli_spy::new();
-    Display { cli: cli_spy }
+    Display { cli: cli_spy, use_colour: false }
 }
 
 fn human_with_moves(moves: Vec<String>) -> Human<CliSpy> {
     let cli_spy = cli_spy::new_with_moves(moves);
-
-    let display = Display { cli: cli_spy};
+    let display = Display { cli: cli_spy, use_colour: false};
     Human { name: Marker::O, display: display }
 }

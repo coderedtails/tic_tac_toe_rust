@@ -22,10 +22,9 @@ fn can_be_created_with_ai_and_human() {
 
     let game_mode = game_mode::new(human,ai);
     let p: &Player = game_mode.next();
-    //assert!( (&p as *const Player) ==  (&human as *const Player) );
 }
 
 
 fn basic_human(name: Marker) -> Human<Cli> {
-    Human { name: name, display: Display { cli: Cli }}
+    Human { name: name, display: Display { cli: Cli, use_colour: false }}
 }

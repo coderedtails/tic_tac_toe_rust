@@ -11,7 +11,7 @@ use tic_tac_toe::players::game_mode;
 fn main() {
     let first =  Ai { name: Marker::X };
 
-    let display = Display { cli: cli::new()};
+    let display = Display { cli: cli::new(), use_colour: true};
     let second = Human { name: Marker::O, display: display };
     let game_mode = game_mode::new(second, first);
 

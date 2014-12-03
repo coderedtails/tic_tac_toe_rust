@@ -15,7 +15,7 @@ impl <P: IO>Game<P>{
         let mut current_player = mode.next();
 
         loop {
-            self.display.render(board);
+            self.display.draw(board);
             board = current_player.make_move(board);
             if board.is_finished() {
                 break;
@@ -23,7 +23,7 @@ impl <P: IO>Game<P>{
             current_player = mode.next();
         }
 
-        self.display.render(board);
+        self.display.draw(board);
         self.show_result(board.winner());
     }
 

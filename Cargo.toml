@@ -4,6 +4,9 @@ name = "tic_tac_toe"
 version = "0.0.1"
 authors = ["Felipe Sere <felipesere@gmail.com>"]
 
+[dependencies]
+ansi_term = "~0.3.0"
+
 [[bin]]
 name = "tic_tac_toe"
 doctest = false
@@ -15,8 +18,6 @@ name = "tic_tac_toe"
 doctest = false
 test = false
 doc = false
-
-
 
 [[test]]
 name = "tic_tac_toe"
