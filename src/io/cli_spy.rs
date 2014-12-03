@@ -19,8 +19,8 @@ pub fn new_with_moves(moves: Vec<String>) -> CliSpy {
 }
 
 impl IO for CliSpy {
-  fn print(&self, line: String) {
-    self.last.borrow_mut().push(line);
+  fn print(&self, line: &str) {
+    self.last.borrow_mut().push(line.to_string());
   }
 
   fn read(&self) -> String {

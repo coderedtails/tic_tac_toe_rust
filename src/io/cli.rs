@@ -8,7 +8,7 @@ pub fn new() -> Cli {
 }
 
 impl IO for Cli {
-    fn print(&self, line: String) {
+    fn print(&self, line: &str) {
         println!("{}", line)
     }
 

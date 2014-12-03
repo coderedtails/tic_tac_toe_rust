@@ -13,16 +13,16 @@ impl<P: IO> Display<P> {
     }
 
     fn clear_screen(&self) {
-        self.cli.print("\x1b[H\x1b[2J".to_string());
+        self.cli.print("\x1b[H\x1b[2J");
     }
 
     fn draw_board(&self, board: Board) {
         let lines = render(board);
-        self.cli.print(lines.connect("\n"));
+        self.cli.print(lines.connect("\n").as_slice());
     }
 
     pub fn request_move(&self) -> uint {
-        self.cli.print("Choose move".to_string());
+        self.cli.print("Choose move");
         let input = self.cli.read();
         self.to_int(input)
     }
@@ -30,12 +30,12 @@ impl<P: IO> Display<P> {
     pub fn announce_winner(&self, winner: Marker) {
         match winner  {
             Marker::Empty => panic!("Empty can not be the winner"),
-            _ => self.cli.print(winner_line(winner)),
+            _ => self.cli.print(winner_line(winner).as_slice()),
         }
     }
 
     pub fn announce_draw(&self) {
-        self.cli.print("There was a draw".to_string());
+        self.cli.print("There was a draw");
     }
 
     fn to_int(&self, input: String) -> uint {

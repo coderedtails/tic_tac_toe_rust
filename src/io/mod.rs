@@ -3,6 +3,6 @@ pub mod cli;
 pub mod cli_spy;
 
 pub trait IO {
-    fn print(&self, line: String);
+    fn print(&self, line: &str);
     fn read(&self) -> String;
 }
