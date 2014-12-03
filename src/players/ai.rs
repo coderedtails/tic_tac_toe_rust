@@ -4,9 +4,15 @@ use players::Player;
 
 use std::cmp;
 use std::num::Int;
+use std::rand;
+use std::rand::Rng;
 
 pub struct Ai {
     pub name: Marker,
+}
+
+pub fn new(name: Marker) -> Ai {
+    Ai { name: name }
 }
 
 impl Player for Ai {
@@ -20,7 +26,7 @@ impl Ai {
     pub fn best_move(&self, board: Board) -> uint {
         let mut best_move = 0u;
         let mut best_score: int = Int::min_value();
-        for m in board.remaining_moves().iter() {
+        for m in Ai::shuffled(board.remaining_moves()).iter() {
             let next_board = board.make_move(*m, &self.name);
             let score = -Ai::negamax(next_board, best_score, 10, self.name.opponent());
 
@@ -30,6 +36,15 @@ impl Ai {
             }
         }
         best_move
+    }
+
+    fn shuffled(moves: Vec<uint>) -> Vec<uint> {
+        let mut v: Vec<uint> = moves;
+        {
+            let mut slice: &mut [uint] = &mut *v;
+            rand::task_rng().shuffle(slice);
+        }
+        v
     }
 
     fn negamax(board: Board, alpha: int, beta: int, name: Marker) -> int {
@@ -63,8 +78,4 @@ impl Ai {
         }
         best_score
     }
-}
-
-pub fn new(name: Marker) -> Ai {
-    Ai { name: name }
 }
