@@ -6,6 +6,7 @@ use tic_tac_toe::io::display::Display;
 use tic_tac_toe::core::board;
 use tic_tac_toe::core::board::Board;
 use tic_tac_toe::core::marker::Marker;
+use tic_tac_toe::players::human::Human;
 
 pub mod core;
 pub mod game;
@@ -38,4 +39,11 @@ fn assert_printed(cli: &mut CliSpy, line: &str) {
 fn create_spy_display() -> Display<CliSpy> {
     let cli_spy = cli_spy::new();
     Display { cli: cli_spy }
+}
+
+fn human_with_moves(moves: Vec<String>) -> Human<CliSpy> {
+    let cli_spy = cli_spy::new_with_moves(moves);
+
+    let display = Display { cli: cli_spy};
+    Human { name: Marker::O, display: display }
 }
