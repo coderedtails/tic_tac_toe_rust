@@ -20,6 +20,10 @@ impl Player for Ai {
         let best_move = &self.best_move(board);
         board.make_move(*best_move, &self.name)
     }
+
+    fn player_type(&self) -> String {
+        "Ai".to_string()
+    }
 }
 
 impl Ai {

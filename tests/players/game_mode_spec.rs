@@ -6,22 +6,15 @@ use tic_tac_toe::players::ai;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli::Cli;
-use tic_tac_toe::players::Player;
 
 #[test]
-fn can_be_created_with_two_ais() {
-    let ai = ai::new(Marker::O);
-
-    let game_mode = game_mode::new(ai,ai);
-}
-
-#[test]
-fn can_be_created_with_ai_and_human() {
+fn create_opponents_line_with_players_names() {
     let human = basic_human(Marker::X);
     let ai = ai::new(Marker::O);
 
     let game_mode = game_mode::new(human,ai);
-    let p: &Player = game_mode.next();
+    let line  = game_mode.opponents_line();
+    assert_eq!("Human vs. Ai", line.as_slice());
 }
 
 

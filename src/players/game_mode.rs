@@ -21,6 +21,12 @@ impl<T:Player, R:Player> GameMode<T,R> {
    }
 }
 
+impl<T: Player, R: Player> GameMode<T,R> {
+    pub fn opponents_line(&self) -> String {
+        format!("{} vs. {}", self.first.player_type(), self.second.player_type())
+    }
+}
+
 pub fn new<T:Player, R: Player>(first: T, second: R) -> GameMode<T,R> {
     GameMode { first: first, second: second, counter: Cell::new(0u) }
 }

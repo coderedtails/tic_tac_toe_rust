@@ -16,6 +16,10 @@ impl Player for ScriptedPlayer {
             None => panic!("No moves left!"),
         }
     }
+
+    fn player_type(&self) -> String {
+        "Scriptable".to_string()
+    }
 }
 
 pub fn new_with_moves(name: Marker, moves: Vec<uint>) -> ScriptedPlayer {

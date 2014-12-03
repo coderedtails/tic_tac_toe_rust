@@ -21,4 +21,8 @@ impl<P: IO> Player for Human<P> {
             }
         }
     }
+
+    fn player_type(&self) -> String {
+        "Human".to_string()
+    }
 }
