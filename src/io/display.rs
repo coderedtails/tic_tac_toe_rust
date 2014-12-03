@@ -8,7 +8,6 @@ use ansi_term::Colour::{Red, Blue, White};
 pub struct Display<P> {
     pub cli: P,
     pub use_colour: bool,
-
 }
 
 impl<P: IO> Display<P> {
@@ -26,12 +25,6 @@ impl<P: IO> Display<P> {
         self.cli.print(lines.connect("\n").as_slice());
     }
 
-    pub fn request_move(&self) -> uint {
-        self.cli.print("Choose move");
-        let input = self.cli.read();
-        self.to_int(input)
-    }
-
     pub fn announce_winner(&self, winner: Marker) {
         match winner  {
             Marker::Empty => panic!("Empty can not be the winner"),
@@ -44,6 +37,7 @@ impl<P: IO> Display<P> {
     }
 
     pub fn show_options<'a>(&self, modes: &[GameMode<'a>, ..4]) {
+        self.clear_screen();
         for (idx, mode) in modes.iter().enumerate() {
             self.show_option(mode, idx);
         }
@@ -55,7 +49,15 @@ impl<P: IO> Display<P> {
     }
 
     pub fn request_mode(&self) -> uint {
-        self.cli.print("Choose game mode:");
+        self.read_int_with_output("Choose game mode:")
+    }
+
+    pub fn request_move(&self) -> uint {
+        self.read_int_with_output("Choose move")
+    }
+
+    fn read_int_with_output(&self, output: &str) -> uint {
+        self.cli.print(output);
         let input = self.cli.read();
         self.to_int(input)
     }
@@ -88,8 +90,7 @@ impl<P: IO> Display<P> {
     fn render_line(&self, line: &[Marker], offset: uint) -> String {
         line.iter().enumerate()
             .map(|(idx, player)| self.render_cell((idx+offset, player)))
-            .collect::<Vec<String>>()
-            .concat()
+            .collect::<Vec<String>>().concat()
     }
 
     pub fn render_cell(&self, elements: (uint, &Marker)) -> String {
