@@ -1,13 +1,11 @@
 #[cfg(test)]
 
 use tic_tac_toe::io::cli_spy;
-use tic_tac_toe::io::cli_spy::CliSpy;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::players::scripted_player;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::game::game::Game;
 use tic_tac_toe::players::game_mode;
-
 
 #[test]
 fn runs_until_there_is_a_draw() {
@@ -21,7 +19,7 @@ fn runs_until_there_is_a_draw() {
 
     let mut game = Game { display: display};
     game.play(game_mode);
-    assert_printed(&mut game.display.cli, "There was a draw");
+    ::assert_printed(&mut game.display.cli, "There was a draw");
 }
 
 #[test]
@@ -36,12 +34,5 @@ fn runs_until_there_is_a_winner() {
 
     let mut game = Game { display: display};
     game.play(game_mode);
-    assert_printed(&mut game.display.cli, "The winner was X");
-}
-
-fn assert_printed(cli: &mut CliSpy, line: &str) {
-    match cli.last_line() {
-        Some(n) => assert_eq!(line.to_string(), n),
-        None => panic!("No call to print happend!")
-    }
+    ::assert_printed(&mut game.display.cli, "The winner was X");
 }

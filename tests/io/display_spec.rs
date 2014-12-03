@@ -3,7 +3,6 @@
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli_spy;
-use tic_tac_toe::io::cli_spy::CliSpy;
 use tic_tac_toe::core::board;
 use tic_tac_toe::core::board::Board;
 use tic_tac_toe::core::marker::Marker;
@@ -13,10 +12,9 @@ static BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 #[test]
 fn prints_a_board_to_a_cli_spy() {
     let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]";
-    let cli_spy = cli_spy::new();
-    let mut display = Display { cli: cli_spy };
+    let mut display = ::create_spy_display();
     display.render(BOARD);
-    assert_printed(&mut display.cli, result);
+    ::assert_printed(&mut display.cli, result);
 }
 
 #[test]
@@ -25,30 +23,21 @@ fn request_a_valid_move() {
     let mut display = Display { cli: cli_spy };
     let result = display.request_move();
     assert_eq!(result, 1);
-    assert_printed(&mut display.cli, "Choose move");
+    ::assert_printed(&mut display.cli, "Choose move");
 }
 
 #[test]
 fn announces_x_as_the_winner() {
-    let cli_spy = cli_spy::new();
-    let mut display = Display { cli: cli_spy };
+    let mut display = ::create_spy_display();
     display.announce_winner(Marker::X);
-    assert_printed(&mut display.cli, "The winner was X");
+    ::assert_printed(&mut display.cli, "The winner was X");
 }
 
 #[test]
 fn announces_a_draw() {
-    let cli_spy = cli_spy::new();
-    let mut display = Display { cli: cli_spy };
+    let mut display = ::create_spy_display();
     display.announce_draw();
-    assert_printed(&mut display.cli, "There was a draw");
-}
-
-fn assert_printed(cli: &mut CliSpy, line: &str) {
-    match cli.last_line() {
-        Some(n) => assert_eq!(line.to_string(), n),
-        None => panic!("No call to print happend!")
-    }
+    ::assert_printed(&mut display.cli, "There was a draw");
 }
 
 #[test]
@@ -76,7 +65,7 @@ fn prints_non_empty_board_into_strings_per_row() {
 fn prints_an_empty_row_of_board() {
     let line = empty();
     let result = io::display::render_line(&line,0);
-    assert_eq!("[0][1][2]".to_string(), result);
+    assert_eq!("[0][1][2]", result.as_slice());
 }
 
 fn empty() -> [Marker, ..3] {
@@ -87,19 +76,19 @@ fn empty() -> [Marker, ..3] {
 fn prints_player_x() {
     let input = (0u, &Marker::X);
     let result = io::display::render_cell(input);
-    assert_eq!("[X]".to_string(), result);
+    assert_eq!("[X]", result.as_slice());
 }
 
 #[test]
 fn prints_player_o() {
     let input = (0u, &Marker::O);
     let result = io::display::render_cell(input);
-    assert_eq!("[O]".to_string(), result);
+    assert_eq!("[O]", result.as_slice());
 }
 
 #[test]
 fn prints_index_when_empty() {
     let input = (1u, &Marker::Empty);
     let result = io::display::render_cell(input);
-    assert_eq!("[1]".to_string(), result);
+    assert_eq!("[1]", result.as_slice());
 }
