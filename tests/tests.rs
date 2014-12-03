@@ -3,11 +3,30 @@ extern crate tic_tac_toe;
 use tic_tac_toe::io::cli_spy;
 use tic_tac_toe::io::cli_spy::CliSpy;
 use tic_tac_toe::io::display::Display;
+use tic_tac_toe::core::board;
+use tic_tac_toe::core::board::Board;
+use tic_tac_toe::core::marker::Marker;
 
 pub mod core;
 pub mod game;
 pub mod io;
 pub mod players;
+
+pub fn board_from_str(input: &str) -> Board {
+    let mut board = board::empty();
+    for (idx, c) in input.chars().enumerate() {
+        let marker = match c {
+                        'X' => Marker::X,
+                        'O' => Marker::O,
+                         _ => continue,
+        };
+
+        board = board.make_move(idx, &marker);
+    }
+
+    board
+
+}
 
 fn assert_printed(cli: &mut CliSpy, line: &str) {
     match cli.last_line() {

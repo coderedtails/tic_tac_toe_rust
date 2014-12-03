@@ -10,21 +10,15 @@ pub struct Board {
     pub marks: [Marker,..9]
 }
 
+pub fn empty() -> Board {
+    Board{ marks: [Marker::Empty,..9]}
+}
+
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        remaining_moves(&self.marks)
+        self.marks.iter().enumerate().filter_map(marker_to_index).collect()
     }
 
-    pub fn is_finished(&self) -> bool {
-        has_winner(&self.marks) || has_draw(&self.marks)
-    }
-
-    pub fn is_winner(&self, player: &Marker) -> bool {
-        match self.winner() {
-            WinnerResult::Winner(ref n) if n == player => true,
-            _ => false,
-        }
-    }
 
     pub fn winner(&self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
@@ -38,6 +32,20 @@ impl Board {
 
     }
 
+    pub fn is_winner(&self, player: &Marker) -> bool {
+        match self.winner() {
+            WinnerResult::Winner(ref n) if n == player => true,
+            _ => false,
+        }
+    }
+
+    fn has_winner(&self) -> bool {
+        match self.winner() {
+            WinnerResult::Winner(_) => true,
+            WinnerResult::NoWinner  => false,
+        }
+    }
+
     pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
         let mut new_marks = self.marks.clone();
         new_marks[location] = *player;
@@ -49,29 +57,23 @@ impl Board {
     }
 
     pub fn value(&self) -> int {
-        if has_winner(&self.marks) {
+        if self.has_winner() {
             (self.remaining_moves().len() + 1) as int
         } else {
             0
         }
     }
+
+    pub fn is_finished(&self) -> bool {
+        self.has_winner() || self.has_draw()
+    }
+
+    pub fn has_draw(&self) -> bool {
+        !self.has_winner() && self.remaining_moves().is_empty()
+    }
 }
 
-pub fn empty() -> Board {
-    Board{ marks: [Marker::Empty,..9]}
-}
 
-pub fn is_finished(board: &[Marker, ..9]) -> bool {
-    has_winner(board) || has_draw(board)
-}
-
-pub fn has_draw(board: &[Marker]) -> bool {
-    !has_winner(board) && remaining_moves(board).is_empty()
-}
-
-pub fn remaining_moves(board: &[Marker]) -> Vec<uint> {
-    board.iter().enumerate().filter_map(marker_to_index).collect()
-}
 
 fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
     let (idx, player) = pair;
@@ -79,16 +81,6 @@ fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
         Marker::Empty => Some(idx),
         _ => None,
     }
-}
-
-fn has_winner(board: &[Marker]) -> bool {
-    for line in all_lines(board).into_iter() {
-        match line.winner() {
-            WinnerResult::Winner(_) => return true,
-            WinnerResult::NoWinner  => continue,
-        }
-    }
-    false
 }
 
 fn all_lines(board: &[Marker]) ->Vec<line::Line> {
