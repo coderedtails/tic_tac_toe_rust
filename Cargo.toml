@@ -4,3 +4,24 @@ name = "tic_tac_toe"
 version = "0.0.1"
 authors = ["Felipe Sere <felipesere@gmail.com>"]
 
+[[bin]]
+name = "tic_tac_toe"
+doctest = false
+test = false
+doc = false
+
+[lib]
+name = "tic_tac_toe"
+doctest = false
+test = false
+doc = false
+
+
+
+[[test]]
+name = "tic_tac_toe"
+path = "tests/tests.rs"
+test = true
+doctest = false
+doc = false
+

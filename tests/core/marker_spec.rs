@@ -1,7 +1,5 @@
 #[cfg(test)]
 
-extern crate tic_tac_toe;
-
 use tic_tac_toe::core::marker::Marker;
 
 #[test]

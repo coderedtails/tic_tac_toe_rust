@@ -1,7 +1,5 @@
 #[cfg(test)]
 
-extern crate tic_tac_toe;
-
 use tic_tac_toe::io;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli_spy;

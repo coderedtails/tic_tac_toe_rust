@@ -1,7 +1,5 @@
 #[cfg(test)]
 
-extern crate tic_tac_toe;
-
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::players::human::Human;
 use tic_tac_toe::io::display::Display;
