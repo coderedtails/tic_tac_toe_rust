@@ -10,7 +10,7 @@ pub struct Game<P> {
 }
 
 impl <P: IO>Game<P>{
-    pub fn play<T: Player, R: Player>(&self, mode: GameMode<T,R>) {
+    pub fn play(&self, mode: GameMode) {
         let mut board = board::empty();
         let mut current_player = mode.next();
 
