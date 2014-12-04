@@ -27,7 +27,7 @@ fn prints_a_non_empty_board() {
 
 #[test]
 fn request_a_valid_move() {
-    let cli_spy = cli_spy::new_with_moves(vec!["1".to_string()]);
+    let cli_spy = cli_spy::new_with_input(vec!["1".to_string()]);
     let mut display = Display { cli: cli_spy, use_colour: false };
     let result = display.request_move();
     assert_eq!(result, 1);
@@ -36,11 +36,29 @@ fn request_a_valid_move() {
 
 #[test]
 fn request_a_valid_game_mode() {
-    let cli_spy = cli_spy::new_with_moves(vec!["1".to_string()]);
+    let cli_spy = cli_spy::new_with_input(vec!["1".to_string()]);
     let mut display = Display { cli: cli_spy, use_colour: false };
     let result = display.request_mode();
     assert_eq!(result, 1);
     ::assert_printed(&mut display.cli, "Choose game mode:");
+}
+
+#[test]
+fn requests_a_rematch_accepted() {
+    let cli_spy = cli_spy::new_with_input(vec!["Y\n".to_string()]);
+    let mut display = Display { cli: cli_spy, use_colour: false };
+    let result = display.request_rematch();
+    assert_eq!(result, true);
+    ::assert_printed(&mut display.cli, "Want a rematch? (Y/N)");
+}
+
+#[test]
+fn requests_a_rematch_denied() {
+    let cli_spy = cli_spy::new_with_input(vec!["N".to_string()]);
+    let mut display = Display { cli: cli_spy, use_colour: false };
+    let result = display.request_rematch();
+    assert_eq!(result, false);
+    ::assert_printed(&mut display.cli, "Want a rematch? (Y/N)");
 }
 
 #[test]

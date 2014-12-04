@@ -8,10 +8,10 @@ pub struct CliSpy {
 
 pub fn new() -> CliSpy {
     let moves = vec!["1".to_string()];
-    new_with_moves(moves)
+    new_with_input(moves)
 }
 
-pub fn new_with_moves(moves: Vec<String>) -> CliSpy {
+pub fn new_with_input(moves: Vec<String>) -> CliSpy {
     CliSpy {
               last: RefCell::new(Vec::new()),
               moves: RefCell::new(moves),

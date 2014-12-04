@@ -64,10 +64,18 @@ impl<P: IO> Display<P> {
 
     fn to_int(&self, input: String) -> uint {
         let raw: Option<uint> = from_str(input.as_slice().trim());
-
         match raw {
             Some(number) => number,
             None => 100,
+        }
+    }
+
+    pub fn request_rematch(&self) -> bool {
+        self.cli.print("Want a rematch? (Y/N)");
+        let input = self.cli.read();
+        match input.as_slice().trim() {
+            "Y" => true,
+            _ => false,
         }
     }
 
