@@ -39,7 +39,7 @@ fn create_spy_display() -> Display<CliSpy> {
     Display { cli: cli_spy, use_colour: false }
 }
 
-fn human_with_moves(moves: Vec<String>) -> Human<CliSpy> {
+fn human_with_moves(moves: &str) -> Human<CliSpy> {
     let cli_spy = cli_spy::new_with_input(moves);
     let display = Display { cli: cli_spy, use_colour: false};
     Human { name: Marker::O, display: display }

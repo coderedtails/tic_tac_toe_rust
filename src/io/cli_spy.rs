@@ -7,15 +7,15 @@ pub struct CliSpy {
 }
 
 pub fn new() -> CliSpy {
-    let moves = vec!["1".to_string()];
-    new_with_input(moves)
+    new_with_input("1")
 }
 
-pub fn new_with_input(moves: Vec<String>) -> CliSpy {
+pub fn new_with_input(input: &str) -> CliSpy {
+    let split: Vec<String> = input.split(',').map(|x| x.to_string()).collect();
     CliSpy {
-              last: RefCell::new(Vec::new()),
-              moves: RefCell::new(moves),
-             }
+        last: RefCell::new(Vec::new()),
+        moves: RefCell::new(split),
+    }
 }
 
 impl IO for CliSpy {
