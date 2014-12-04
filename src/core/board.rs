@@ -17,15 +17,15 @@ pub fn empty() -> Board {
 
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        let mut result: Vec<uint> = Vec::new();
-        for (idx, &marker) in self.elements().iter() {
-            match marker {
-                Marker::Empty => result.push(*idx),
-                _ => continue,
-            }
+        self.marks.iter().enumerate().filter_map(Board::marker_to_index).collect()
+    }
 
+    fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
+        let (idx, player) = pair;
+        match *player {
+            Marker::Empty => Some(idx+1),
+            _ => None,
         }
-        result
     }
 
     pub fn winner(&self) -> WinnerResult {

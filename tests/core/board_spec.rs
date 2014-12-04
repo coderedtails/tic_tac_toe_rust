@@ -35,11 +35,12 @@ fn full_board_with_draw_is_finished() {
     assert!(board.has_draw());
 }
 
-#[ignore]
 #[test]
 fn amount_of_remaining_moves_matches_number_of_empty() {
     let remaining_moves = BOARD.remaining_moves();
-    assert_eq!(remaining_moves, vec![1u,2,3,4,5,6,7,8,9])
+    for i in range(1u,10) {
+        assert!(remaining_moves.contains(&i));
+    }
 }
 
 #[test]
