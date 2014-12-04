@@ -1,7 +1,6 @@
 #[cfg(test)]
 
 use tic_tac_toe::core::line;
-use tic_tac_toe::core::line::Winnable;
 use tic_tac_toe::core::marker::Marker;
 
 #[test]

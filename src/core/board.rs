@@ -1,6 +1,5 @@
 use core::line;
 use core::line::WinnerResult;
-use core::line::Winnable;
 use core::marker::Marker;
 
 #[deriving(Show, Clone, PartialEq)]
@@ -17,7 +16,6 @@ impl Board {
         self.marks.iter().enumerate().filter_map(marker_to_index).collect()
     }
 
-
     pub fn winner(&self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
             let result = line.winner();
@@ -27,7 +25,6 @@ impl Board {
             }
         }
         WinnerResult::NoWinner
-
     }
 
     pub fn is_winner(&self, player: &Marker) -> bool {
@@ -70,8 +67,6 @@ impl Board {
         !self.has_winner() && self.remaining_moves().is_empty()
     }
 }
-
-
 
 fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
     let (idx, player) = pair;

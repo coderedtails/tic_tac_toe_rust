@@ -10,7 +10,7 @@ pub struct ScriptedPlayer {
 }
 
 impl Player for ScriptedPlayer {
-    fn make_move(&self, board: Board) -> Board{
+    fn make_move(&self, board: Board) -> Board {
         match self.moves.borrow_mut().pop() {
             Some(n) => board.make_move(n, &self.name),
             None => panic!("No moves left!"),
