@@ -42,16 +42,22 @@ You will notice this in the abundance of symbols and keywords in the source code
 I will highlight some of these features to make it easier to undertand the code.
 If you have C/C++ background you might recognize some of these features and syntax elements.
 
-* Rust is statically typed but realies on type-inference. If the compile is not sure, the data type is placed between the variable name and its assignment:
+* Rust is statically typed but realies on type-inference.
+    If the compile is not sure, the data type is placed between the variable name and its assignment:
     `let foo: uint = 12;`. For mutable access, add the _mut_ keyword: `let mut foo = 12u`
+
 * Lines ending in semi colons are a statement (such as assignment) that *do not* return a value.
     Hence you'll see the last line in a function have no semi-colon, unless it return nothing.
 
+* Return values go at the end of signatures: `pub fn say_hello(name: &str) -> String {...}`
+
 * To ensure safety Rust forces you to declare _mutability_. This is a rather complex subject when talking about pointers, but you can think of it like lending a notepad to someone:
-    ** If you only have immutable access, you can lend it to many other people, but only mutably.
-    ** If you have mutable access, you can lend it someone else mutably, but he has to give it back to you before you give it back to its owner
+  * If you only have immutable access, you can lend it to many other people, but only mutably.
+  * If you have mutable access, you can lend it someone else mutably, but he has to give it back to you before you give it back to its owner
+
 * To guarantee these conditions, Rust introduces _lifetime bounds_ (`'a`), which declare that certain references have to be valid for a certain time.
 
-
-
+* Rust allows you to add methods to your structs.
+    It makes a difference whether these methods implement a _Trait_ (interface) are regular methods.
+    Trait are implemented `impl MyTrait for MyStruct {...}` while regular methods go `impl MyStruct {...}`.
 
