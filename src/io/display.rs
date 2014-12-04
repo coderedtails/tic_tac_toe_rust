@@ -1,7 +1,6 @@
 use io::IO;
 use core::marker::Marker;
 use core::board::Board;
-use core::board;
 use players::game_mode::GameMode;
 
 use ansi_term::Colour::{Red, Blue, White};
@@ -85,21 +84,11 @@ impl<P: IO> Display<P> {
     }
 
     fn render(&self, board: Board) -> Vec<String> {
-        let rows = board.rows();
-        let mut result = Vec::new();
-        let mut offset = 1u;
-        for row in rows.iter() {
-            let line = self.render_line(*row, offset);
-            offset += board::BOARD_SIZE;
-            result.push(line);
-        }
-        result
+        board.row_with_index().iter().map(|x| self.render_line(x)).collect()
     }
 
-    fn render_line(&self, line: &[Marker], offset: uint) -> String {
-        line.iter().enumerate()
-            .map(|(idx, player)| self.render_cell((idx+offset, player)))
-            .collect::<Vec<String>>().concat()
+    fn render_line(&self, line: &Vec<(uint, &Marker)>) -> String {
+        line.iter().map(|x| self.render_cell(*x)).collect::<Vec<String>>().concat()
     }
 
     pub fn render_cell(&self, elements: (uint, &Marker)) -> String {
