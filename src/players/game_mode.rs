@@ -57,7 +57,7 @@ pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
 fn human_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {
     let human = Human { name: Marker::X, display: display };
     let ai =  Ai { name: Marker::O };
-    new(box human ,box ai)
+    new(box human, box ai)
 }
 
 fn ai_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
@@ -69,11 +69,11 @@ fn ai_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
 fn human_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
     let human1 = Human { name: Marker::X, display: display };
     let human2 = Human { name: Marker::O, display: display };
-    new(box human1,box human2)
+    new(box human1, box human2)
 }
 
 pub fn ai_vs_ai<'a>() -> GameMode<'a> {
     let ai1 = Ai { name: Marker::X};
     let ai2 = Ai { name: Marker::O};
-    new(box ai1,box ai2)
+    new(box ai1, box ai2)
 }

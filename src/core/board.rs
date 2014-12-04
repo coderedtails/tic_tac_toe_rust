@@ -3,9 +3,7 @@ use core::line::WinnerResult;
 use core::line::Winnable;
 use core::marker::Marker;
 
-#[deriving(Show)]
-#[deriving(Clone)]
-#[deriving(PartialEq)]
+#[deriving(Show, Clone, PartialEq)]
 pub struct Board {
     pub marks: [Marker,..9]
 }
