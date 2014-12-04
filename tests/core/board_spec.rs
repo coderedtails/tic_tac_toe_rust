@@ -72,19 +72,6 @@ fn a_board_has_multiple_rows() {
     assert!(BOARD.rows() == result);
 }
 
-#[test]
-fn board_exposes_elements_as_map() {
-    let elements = BOARD.elements();
-    assert!(!elements.contains_key(&0));
-    for i in range(1u, 10) {
-        match elements.get(&i) {
-            Some(n) => assert_eq!(n, &Marker::Empty),
-            None => panic!("Missing element {}", i),
-        }
-    }
-
-}
-
 fn empty_players() -> [Marker, ..3] {
     [Marker::Empty, Marker::Empty, Marker::Empty]
 }
