@@ -9,7 +9,7 @@ static AI: Ai = Ai {name: Marker::X};
 fn ai_can_block_in_the_first_row() {
     let board = ::board_from_str("O-O------");
     let result = AI.best_move(board);
-    assert_eq!(result,1u);
+    assert_eq!(result,2u);
 }
 
 #[test]
@@ -17,7 +17,7 @@ fn takes_corners() {
     let board = ::board_from_str("O---O---X");
 
     let result = AI.best_move(board);
-    let expected = vec![2u, 6];
+    let expected = vec![3u, 7];
     assert!(expected.contains(&result));
 }
 
@@ -25,7 +25,7 @@ fn takes_corners() {
 fn takes_edges() {
     let board = ::board_from_str("O---X---O");
     let result = AI.best_move(board);
-    let expected = vec![1u, 3, 5, 7];
+    let expected = vec![2u, 4, 6, 8];
     assert!(expected.contains(&result));
 }
 
@@ -33,6 +33,6 @@ fn takes_edges() {
 fn takes_top_left() {
     let board = ::board_from_str("-O-OX----");
     let result = AI.best_move(board);
-    let expected = vec![0u, 2, 6];
+    let expected = vec![1u, 3, 7];
     assert!(expected.contains(&result));
 }

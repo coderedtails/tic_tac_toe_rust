@@ -9,13 +9,23 @@ pub struct Board {
     pub marks: [Marker,..9]
 }
 
+pub static BOARD_SIZE: uint = 3;
+
 pub fn empty() -> Board {
     Board{ marks: [Marker::Empty,..9]}
 }
 
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        self.marks.iter().enumerate().filter_map(marker_to_index).collect()
+        let mut result: Vec<uint> = Vec::new();
+        for (idx, &marker) in self.elements().iter() {
+            match marker {
+                Marker::Empty => result.push(*idx),
+                _ => continue,
+            }
+
+        }
+        result
     }
 
     pub fn winner(&self) -> WinnerResult {
@@ -45,12 +55,18 @@ impl Board {
 
     pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
         let mut new_marks = self.marks.clone();
-        new_marks[location] = *player;
+        new_marks[location-1] = *player;
         Board { marks: new_marks }
     }
 
     pub fn rows(&self) -> Vec<&[Marker]> {
-        self.marks.chunks(3).collect()
+        self.marks.chunks(BOARD_SIZE).collect()
+    }
+
+    pub fn row_with_index(&self) -> Vec<Vec<(uint, &Marker)>> {
+        let enumerated: Vec<(uint, &Marker)> = self.marks.iter().enumerate().map(|(x,y)| (x+1,y)).collect();
+        let sliced: Vec<Vec<(uint, &Marker)>> = enumerated.chunks(BOARD_SIZE).map(|chunk| chunk.to_vec()).collect();
+        sliced
     }
 
     pub fn value(&self) -> int {
@@ -75,14 +91,6 @@ impl Board {
             result.insert(idx+1, *mark);
         }
         result
-    }
-}
-
-fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
-    let (idx, player) = pair;
-    match *player {
-        Marker::Empty => Some(idx),
-        _ => None,
     }
 }
 

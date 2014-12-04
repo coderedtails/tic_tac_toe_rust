@@ -1,6 +1,7 @@
 use io::IO;
 use core::marker::Marker;
 use core::board::Board;
+use core::board;
 use players::game_mode::GameMode;
 
 use ansi_term::Colour::{Red, Blue, White};
@@ -16,7 +17,7 @@ impl<P: IO> Display<P> {
         self.draw_board(board);
     }
 
-    fn clear_screen(&self) {
+   fn clear_screen(&self) {
         self.cli.print("\x1b[H\x1b[2J");
     }
 
@@ -86,10 +87,10 @@ impl<P: IO> Display<P> {
     fn render(&self, board: Board) -> Vec<String> {
         let rows = board.rows();
         let mut result = Vec::new();
-        let mut offset = 0u;
+        let mut offset = 1u;
         for row in rows.iter() {
             let line = self.render_line(*row, offset);
-            offset += 3;
+            offset += board::BOARD_SIZE;
             result.push(line);
         }
         result

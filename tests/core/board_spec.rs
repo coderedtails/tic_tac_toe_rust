@@ -35,17 +35,18 @@ fn full_board_with_draw_is_finished() {
     assert!(board.has_draw());
 }
 
+#[ignore]
 #[test]
 fn amount_of_remaining_moves_matches_number_of_empty() {
     let remaining_moves = BOARD.remaining_moves();
-    assert_eq!(remaining_moves, vec![0u,1,2,3,4,5,6,7,8])
+    assert_eq!(remaining_moves, vec![1u,2,3,4,5,6,7,8,9])
 }
 
 #[test]
 fn making_a_move_returns_a_fresh_copy() {
-    let changed_board = BOARD.make_move(0, &Marker::X);
-    assert!(!changed_board.remaining_moves().contains(&0u))
-    assert!(BOARD.remaining_moves().contains(&0u))
+    let changed_board = BOARD.make_move(1, &Marker::X);
+    assert!(!changed_board.remaining_moves().contains(&1u))
+    assert!(BOARD.remaining_moves().contains(&1u))
 }
 
 #[test]
@@ -73,6 +74,7 @@ fn a_board_has_multiple_rows() {
 #[test]
 fn board_exposes_elements_as_map() {
     let elements = BOARD.elements();
+    assert!(!elements.contains_key(&0));
     for i in range(1u, 10) {
         match elements.get(&i) {
             Some(n) => assert_eq!(n, &Marker::Empty),

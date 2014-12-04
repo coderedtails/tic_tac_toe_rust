@@ -22,7 +22,7 @@ pub fn board_from_str(input: &str) -> Board {
                          _ => continue,
         };
 
-        board = board.make_move(idx, &marker);
+        board = board.make_move(idx+1, &marker);
     }
     board
 }

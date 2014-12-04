@@ -10,7 +10,7 @@ static BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 
 #[test]
 fn prints_an_empty_board() {
-    let result  = "[0][1][2]\n[3][4][5]\n[6][7][8]";
+    let result  = "[1][2][3]\n[4][5][6]\n[7][8][9]";
     let mut display = ::create_spy_display();
     display.draw(BOARD);
     ::assert_printed(&mut display.cli, result);
@@ -19,7 +19,7 @@ fn prints_an_empty_board() {
 #[test]
 fn prints_a_non_empty_board() {
     let board = ::board_from_str("XXX---OOO");
-    let result  = "[X][X][X]\n[3][4][5]\n[O][O][O]";
+    let result  = "[X][X][X]\n[4][5][6]\n[O][O][O]";
     let mut display = ::create_spy_display();
     display.draw(board);
     ::assert_printed(&mut display.cli, result);
