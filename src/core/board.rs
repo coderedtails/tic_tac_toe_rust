@@ -2,6 +2,8 @@ use core::line;
 use core::line::WinnerResult;
 use core::marker::Marker;
 
+use std::collections::HashMap;
+
 #[deriving(Show, Clone, PartialEq)]
 pub struct Board {
     pub marks: [Marker,..9]
@@ -65,6 +67,14 @@ impl Board {
 
     pub fn has_draw(&self) -> bool {
         !self.has_winner() && self.remaining_moves().is_empty()
+    }
+
+    pub fn elements(&self) -> HashMap<uint, Marker> {
+        let mut result: HashMap<uint, Marker> = HashMap::new();
+        for (mut idx, mark) in self.marks.iter().enumerate() {
+            result.insert(idx+1, *mark);
+        }
+        result
     }
 }
 

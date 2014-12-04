@@ -1,12 +1,13 @@
 #[cfg(test)]
 
-use tic_tac_toe::core::board;
+use tic_tac_toe::core::board::Board;
 use tic_tac_toe::core::marker::Marker;
+
+static BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 
 #[test]
 fn new_board_should_not_be_finished() {
-    let board = board::empty();
-    assert!(!board.is_finished());
+    assert!(!BOARD.is_finished());
 }
 
 #[test]
@@ -36,17 +37,15 @@ fn full_board_with_draw_is_finished() {
 
 #[test]
 fn amount_of_remaining_moves_matches_number_of_empty() {
-    let board = board::empty();
-    let remaining_moves = board.remaining_moves();
+    let remaining_moves = BOARD.remaining_moves();
     assert_eq!(remaining_moves, vec![0u,1,2,3,4,5,6,7,8])
 }
 
 #[test]
 fn making_a_move_returns_a_fresh_copy() {
-    let board = board::empty();
-    let changed_board = board.make_move(0, &Marker::X);
+    let changed_board = BOARD.make_move(0, &Marker::X);
     assert!(!changed_board.remaining_moves().contains(&0u))
-    assert!(board.remaining_moves().contains(&0u))
+    assert!(BOARD.remaining_moves().contains(&0u))
 }
 
 #[test]
@@ -67,9 +66,20 @@ fn a_board_has_multiple_rows() {
     let second: &[Marker] = &empty_players();
     let third:  &[Marker] = &empty_players();
     let result = vec![first, second, third];
-    let board = board::empty();
 
-    assert!(board.rows() == result);
+    assert!(BOARD.rows() == result);
+}
+
+#[test]
+fn board_exposes_elements_as_map() {
+    let elements = BOARD.elements();
+    for i in range(1u, 10) {
+        match elements.get(&i) {
+            Some(n) => assert_eq!(n, &Marker::Empty),
+            None => panic!("Missing element {}", i),
+        }
+    }
+
 }
 
 fn empty_players() -> [Marker, ..3] {
