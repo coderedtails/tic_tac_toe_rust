@@ -8,9 +8,10 @@ pub struct Board {
 }
 
 pub static BOARD_SIZE: uint = 3;
+static EMPTY_BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 
 pub fn empty() -> Board {
-    Board{ marks: [Marker::Empty,..9]}
+    EMPTY_BOARD
 }
 
 impl Board {
@@ -62,9 +63,12 @@ impl Board {
     }
 
     pub fn row_with_index(&self) -> Vec<Vec<(uint, &Marker)>> {
-        let enumerated: Vec<(uint, &Marker)> = self.marks.iter().enumerate().map(|(x,y)| (x+1,y)).collect();
-        let sliced: Vec<Vec<(uint, &Marker)>> = enumerated.chunks(BOARD_SIZE).map(|chunk| chunk.to_vec()).collect();
-        sliced
+        let numbers  = self.marks.iter().enumerate()
+                                        .map(|(x,y)| (x+1,y))
+                                        .collect::<Vec<(uint, &Marker)>>();
+        numbers.chunks(BOARD_SIZE)
+               .map(|chunk| chunk.to_vec())
+               .collect::<Vec<Vec<(uint, &Marker)>>>()
     }
 
     pub fn value(&self) -> int {
@@ -80,7 +84,7 @@ impl Board {
     }
 
     pub fn has_draw(&self) -> bool {
-        !self.has_winner() && self.remaining_moves().is_empty()
+         self.remaining_moves().is_empty() && !self.has_winner()
     }
 }
 

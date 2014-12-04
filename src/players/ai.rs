@@ -31,8 +31,8 @@ impl Ai {
         let mut best_move = 0u;
         let mut best_score: int = Int::min_value();
         for m in Ai::shuffled(board.remaining_moves()).iter() {
-            let next_board = board.make_move(*m, &self.name);
-            let score = -Ai::negamax(next_board, best_score, 10, self.name.opponent());
+            let new_board = board.make_move(*m, &self.name);
+            let score = -Ai::negamax(new_board, best_score, 10, self.name.opponent());
 
             if score > best_score {
                 best_score = score;
@@ -70,7 +70,7 @@ impl Ai {
     fn score_unfinshed(board: Board, alpha: int, beta: int, name: Marker) -> int {
         let mut best_score = alpha;
         let mut current_alpha = alpha;
-        for m in board.remaining_moves().iter() {
+        for m in Ai::shuffled(board.remaining_moves()).iter() {
             let next_board = board.make_move(*m, &name);
             let score = -Ai::negamax(next_board, -beta, -current_alpha, name.opponent());
 

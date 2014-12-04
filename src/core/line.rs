@@ -16,7 +16,6 @@ pub fn new(first: Marker, second: Marker, third: Marker) -> Line {
     Line(first, second, third)
 }
 
-
 impl Line {
     pub fn winner(&self) -> WinnerResult {
         match *self {
@@ -28,7 +27,7 @@ impl Line {
 
     pub fn is_winner(&self, player: &Marker) -> bool {
         match self.winner() {
-            WinnerResult::Winner(n) if n == *player => true,
+            WinnerResult::Winner(ref n) if n == player => true,
             _ => false,
         }
     }
