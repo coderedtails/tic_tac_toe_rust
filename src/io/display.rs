@@ -30,6 +30,11 @@ impl<P: IO> Display<P> {
        self.cli.print(self.winner_line(winner).as_slice())
     }
 
+    fn winner_line(&self, winner: Marker) -> String {
+        format!("The winner was {}", winner.to_string())
+    }
+
+
     pub fn announce_draw(&self) {
         self.cli.print("There was a draw");
     }
@@ -75,10 +80,6 @@ impl<P: IO> Display<P> {
             "Y" => true,
             _ => false,
         }
-    }
-
-    fn winner_line(&self, winner: Marker) -> String {
-        format!("The winner was {}", winner.to_string())
     }
 
     fn render(&self, board: Board) -> Vec<String> {
