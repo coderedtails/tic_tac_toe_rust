@@ -87,25 +87,26 @@ impl<P: IO> Display<P> {
     }
 
     fn render_line(&self, line: &[Slot]) -> String {
-        line.iter().map(|x| self.render_cell(*x)).collect::<Vec<String>>().concat()
+        line.iter().map(|x| self.render_slot(*x)).collect::<Vec<String>>().concat()
     }
 
-    pub fn render_cell(&self, slot: Slot) -> String {
+    pub fn render_slot(&self, slot: Slot) -> String {
         let inner = if self.use_colour  {
-            self.render_colour_cell(slot)
+            render_colour_slot(slot)
         } else {
             slot.printable()
         };
         format!("[{}]", inner)
     }
+}
 
-    pub fn render_colour_cell(&self, slot: Slot) -> String {
-        let printable = slot.printable();
-        let inner = printable.as_slice();
-        match slot {
-            Slot::Placed(Marker::X) => format!("{}", Red.paint(inner)),
-            Slot::Placed(Marker::O) => format!("{}", Blue.paint(inner)),
-            Slot::Move(_) => format!("{}", White.paint(inner)),
-        }
-    }
+pub fn render_colour_slot(slot: Slot) -> String {
+    let printable = slot.printable();
+    let inner = printable.as_slice();
+    let ansi = match slot {
+        Slot::Placed(Marker::X) => Red.paint(inner),
+        Slot::Placed(Marker::O) => Blue.paint(inner),
+        Slot::Move(_) => White.paint(inner),
+    };
+    ansi.to_string()
 }

@@ -1,8 +1,10 @@
 #[cfg(test)]
 
 use tic_tac_toe::io::cli_spy;
+use tic_tac_toe::io::display;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::core::board;
+use tic_tac_toe::core::board::Slot;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::players::game_mode;
 
@@ -21,6 +23,24 @@ fn prints_a_non_empty_board() {
     let mut display = ::create_spy_display();
     display.draw(board);
     ::assert_printed(&mut display.cli, result);
+}
+
+#[test]
+fn prints_x_in_red() {
+    let result = display::render_colour_slot(Slot::Placed(Marker::X));
+    assert_eq!(result.to_string(), "\x1B[31mX\x1B[0m".to_string());
+}
+
+#[test]
+fn prints_o_in_blue() {
+    let result = display::render_colour_slot(Slot::Placed(Marker::O));
+    assert_eq!(result.to_string(), "\x1B[34mO\x1B[0m".to_string());
+}
+
+#[test]
+fn prints_moves_in_white() {
+    let result = display::render_colour_slot(Slot::Move(3));
+    assert_eq!(result.to_string(), "\x1B[37m3\x1B[0m".to_string());
 }
 
 #[test]
