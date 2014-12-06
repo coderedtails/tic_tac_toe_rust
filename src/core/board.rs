@@ -32,12 +32,9 @@ pub fn empty() -> Board {
 
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        self.marks.iter()
-                  .filter_map( |&cell| match cell {
-                                             Slot::Move(u) => Some(u),
-                                             _ => None
-        }).collect()
+        self.marks.iter().filter_map(keep_moves).collect()
     }
+
 
     pub fn winner(&self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
@@ -88,6 +85,13 @@ impl Board {
 
     pub fn has_draw(&self) -> bool {
          self.remaining_moves().is_empty() && !self.has_winner()
+    }
+}
+
+fn keep_moves(slot: &Slot) -> Option<uint> {
+    match *slot {
+        Slot::Move(m) => Some(m),
+        _ => None,
     }
 }
 
