@@ -1,5 +1,5 @@
 use core::marker::Marker;
-use core::board::Slot;
+use core::slot::Slot;
 
 #[deriving(Clone)]
 pub struct Line(pub Option<Marker>, pub Option<Marker>, pub Option<Marker>);

@@ -1,21 +1,8 @@
 use core::line;
 use core::line::WinnerResult;
 use core::marker::Marker;
+use core::slot::Slot;
 
-#[deriving(Show, Clone, PartialEq)]
-pub enum Slot {
-    Placed(Marker),
-    Move(uint)
-}
-
-impl Slot {
-    pub fn printable(self) -> String {
-        match self {
-            Slot::Placed(p) => p.to_string(),
-            Slot::Move(m) =>  m.to_string(),
-        }
-    }
-}
 
 #[deriving(Show, Clone, PartialEq)]
 pub struct Board {

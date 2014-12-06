@@ -4,7 +4,7 @@ use tic_tac_toe::io::cli_spy;
 use tic_tac_toe::io::display;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::core::board;
-use tic_tac_toe::core::board::Slot;
+use tic_tac_toe::core::slot::Slot;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::players::game_mode;
 
