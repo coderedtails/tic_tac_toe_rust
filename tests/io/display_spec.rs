@@ -1,18 +1,16 @@
 #[cfg(test)]
 
-use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli_spy;
-use tic_tac_toe::players::game_mode;
-use tic_tac_toe::core::board::Board;
+use tic_tac_toe::io::display::Display;
+use tic_tac_toe::core::board;
 use tic_tac_toe::core::marker::Marker;
-
-static BOARD: Board = Board{ marks: [Marker::Empty,..9]};
+use tic_tac_toe::players::game_mode;
 
 #[test]
 fn prints_an_empty_board() {
     let result  = "[1][2][3]\n[4][5][6]\n[7][8][9]";
     let mut display = ::create_spy_display();
-    display.draw(BOARD);
+    display.draw(board::empty());
     ::assert_printed(&mut display.cli, result);
 }
 

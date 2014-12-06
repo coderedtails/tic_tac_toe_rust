@@ -8,10 +8,3 @@ fn opponent_of_x_is_o() {
 
     assert_eq!(Marker::O, marker.opponent());
 }
-
-#[test]
-fn opponent_of_empty_is_empty() {
-    let marker = Marker::Empty;
-
-    assert_eq!(marker, marker.opponent());
-}

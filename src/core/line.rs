@@ -1,7 +1,8 @@
 use core::marker::Marker;
+use core::board::Slot;
 
 #[deriving(Clone)]
-pub struct Line(Marker, Marker, Marker);
+pub struct Line(pub Option<Marker>, pub Option<Marker>, pub Option<Marker>);
 
 pub enum WinnerResult {
     Winner(Marker),
@@ -9,18 +10,24 @@ pub enum WinnerResult {
 }
 
 pub fn empty() -> Line {
-    new(Marker::Empty, Marker::Empty, Marker::Empty)
+    Line(None, None, None)
 }
 
-pub fn new(first: Marker, second: Marker, third: Marker) -> Line {
-    Line(first, second, third)
+pub fn from_slots(first: Slot, second: Slot, third: Slot) -> Line {
+    Line(convert(first), convert(second), convert(third))
+}
+
+fn convert(slot: Slot) -> Option<Marker> {
+    match slot {
+        Slot::Placed(m) => Some(m),
+        Slot::Move(_) => None,
+    }
 }
 
 impl Line {
     pub fn winner(&self) -> WinnerResult {
         match *self {
-            Line(Marker::X, Marker::X, Marker::X) => WinnerResult::Winner(Marker::X),
-            Line(Marker::O, Marker::O, Marker::O) => WinnerResult::Winner(Marker::O),
+            Line(Some(a), Some(b),Some(c)) if a == b && a == c => WinnerResult::Winner(a),
             Line(_,_,_) => WinnerResult::NoWinner,
         }
     }

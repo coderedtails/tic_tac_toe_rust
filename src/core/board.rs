@@ -3,28 +3,40 @@ use core::line::WinnerResult;
 use core::marker::Marker;
 
 #[deriving(Show, Clone, PartialEq)]
+pub enum Slot {
+    Placed(Marker),
+    Move(uint)
+}
+
+impl Slot {
+    pub fn printable(self) -> String {
+        match self {
+            Slot::Placed(p) => p.to_string(),
+            Slot::Move(m) =>  m.to_string(),
+        }
+    }
+}
+
+#[deriving(Show, Clone, PartialEq)]
 pub struct Board {
-    pub marks: [Marker,..9]
+    pub marks: [Slot,..9]
 }
 
 pub static BOARD_SIZE: uint = 3;
-static EMPTY_BOARD: Board = Board{ marks: [Marker::Empty,..9]};
 
 pub fn empty() -> Board {
-    EMPTY_BOARD
+    Board { marks: [Slot::Move(1), Slot::Move(2), Slot::Move(3),
+                    Slot::Move(4), Slot::Move(5), Slot::Move(6),
+                    Slot::Move(7), Slot::Move(8), Slot::Move(9)]}
 }
 
 impl Board {
     pub fn remaining_moves(&self) -> Vec<uint> {
-        self.marks.iter().enumerate().filter_map(Board::marker_to_index).collect()
-    }
-
-    fn marker_to_index(pair: (uint, &Marker)) -> Option<uint> {
-        let (idx, player) = pair;
-        match *player {
-            Marker::Empty => Some(idx+1),
-            _ => None,
-        }
+        self.marks.iter()
+                  .filter_map( |&cell| match cell {
+                                             Slot::Move(u) => Some(u),
+                                             _ => None
+        }).collect()
     }
 
     pub fn winner(&self) -> WinnerResult {
@@ -54,21 +66,12 @@ impl Board {
 
     pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
         let mut new_marks = self.marks.clone();
-        new_marks[location-1] = *player;
+        new_marks[location-1] = Slot::Placed(*player);
         Board { marks: new_marks }
     }
 
-    pub fn rows(&self) -> Vec<&[Marker]> {
+    pub fn rows(&self) -> Vec<&[Slot]> {
         self.marks.chunks(BOARD_SIZE).collect()
-    }
-
-    pub fn row_with_index(&self) -> Vec<Vec<(uint, &Marker)>> {
-        let numbers  = self.marks.iter().enumerate()
-                                        .map(|(x,y)| (x+1,y))
-                                        .collect::<Vec<(uint, &Marker)>>();
-        numbers.chunks(BOARD_SIZE)
-               .map(|chunk| chunk.to_vec())
-               .collect::<Vec<Vec<(uint, &Marker)>>>()
     }
 
     pub fn value(&self) -> int {
@@ -88,7 +91,7 @@ impl Board {
     }
 }
 
-fn all_lines(board: &[Marker]) ->Vec<line::Line> {
+fn all_lines(board: &[Slot]) ->Vec<line::Line> {
     let mut lines:Vec<line::Line> = Vec::new();
     lines.push_all(&rows(board));
     lines.push_all(&columns(board));
@@ -96,23 +99,23 @@ fn all_lines(board: &[Marker]) ->Vec<line::Line> {
     lines
 }
 
-fn rows(board: &[Marker]) -> [line::Line, ..3]  {
+fn rows(board: &[Slot]) -> [line::Line, ..3]  {
     [of(board, 0, 1 ,2),
      of(board, 3, 4 ,5),
      of(board, 6, 7 ,8)]
 }
 
-fn columns(board: &[Marker]) -> [line::Line, ..3]  {
+fn columns(board: &[Slot]) -> [line::Line, ..3]  {
     [of(board, 0, 3 ,6),
      of(board, 1, 4 ,7),
      of(board, 2, 5 ,8)]
 }
 
-fn diagonals(board: &[Marker]) -> [line::Line, ..2]  {
+fn diagonals(board: &[Slot]) -> [line::Line, ..2]  {
     [of(board, 0, 4 ,8),
      of(board, 6, 4 ,2)]
 }
 
-fn of(board: &[Marker], first: uint, second: uint, third: uint) -> line::Line {
-    line::new(board[first], board[second], board[third])
+fn of(board: &[Slot], first: uint, second: uint, third: uint) -> line::Line {
+    line::from_slots(board[first], board[second], board[third])
 }

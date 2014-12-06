@@ -1,6 +1,7 @@
 use io::IO;
 use core::marker::Marker;
 use core::board::Board;
+use core::board::Slot;
 use players::game_mode::GameMode;
 
 use ansi_term::Colour::{Red, Blue, White};
@@ -26,10 +27,7 @@ impl<P: IO> Display<P> {
     }
 
     pub fn announce_winner(&self, winner: Marker) {
-        match winner  {
-            Marker::Empty => panic!("Empty can not be the winner"),
-            _ => self.cli.print(self.winner_line(winner).as_slice()),
-        }
+       self.cli.print(self.winner_line(winner).as_slice())
     }
 
     pub fn announce_draw(&self) {
@@ -84,29 +82,29 @@ impl<P: IO> Display<P> {
     }
 
     fn render(&self, board: Board) -> Vec<String> {
-        board.row_with_index().iter().map(|x| self.render_line(x)).collect()
+        board.rows().iter().map(|x| self.render_line(*x)).collect()
     }
 
-    fn render_line(&self, line: &Vec<(uint, &Marker)>) -> String {
+    fn render_line(&self, line: &[Slot]) -> String {
         line.iter().map(|x| self.render_cell(*x)).collect::<Vec<String>>().concat()
     }
 
-    pub fn render_cell(&self, elements: (uint, &Marker)) -> String {
-        let (idx, player) = elements;
+    pub fn render_cell(&self, slot: Slot) -> String {
         let inner = if self.use_colour  {
-            self.render_colour_cell(idx, *player)
+            self.render_colour_cell(slot)
         } else {
-            player.as_string(idx)
+            slot.printable()
         };
         format!("[{}]", inner)
     }
 
-    pub fn render_colour_cell(&self, idx: uint, player: Marker) -> String {
-        let inner = player.as_string(idx);
-        match player {
-            Marker::X => format!("{}", Red.paint(inner.as_slice())),
-            Marker::O => format!("{}", Blue.paint(inner.as_slice())),
-            Marker::Empty => format!("{}", White.paint(inner.as_slice())),
+    pub fn render_colour_cell(&self, slot: Slot) -> String {
+        let printable = slot.printable();
+        let inner = printable.as_slice();
+        match slot {
+            Slot::Placed(Marker::X) => format!("{}", Red.paint(inner)),
+            Slot::Placed(Marker::O) => format!("{}", Blue.paint(inner)),
+            Slot::Move(_) => format!("{}", White.paint(inner)),
         }
     }
 }
