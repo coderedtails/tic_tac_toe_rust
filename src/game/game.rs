@@ -1,7 +1,7 @@
 use core::board;
 use io::IO;
 use io::display::Display;
-use players::game_mode::GameMode;
+use game::game_mode::GameMode;
 use players::Player;
 use core::line::WinnerResult;
 

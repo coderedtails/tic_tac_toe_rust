@@ -2,7 +2,7 @@ use io::IO;
 use core::marker::Marker;
 use core::board::Board;
 use core::slot::Slot;
-use players::game_mode::GameMode;
+use game::game_mode::GameMode;
 
 use ansi_term::Colour::{Red, Blue, White};
 

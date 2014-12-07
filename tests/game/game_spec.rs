@@ -3,7 +3,7 @@
 use tic_tac_toe::players::scripted_player;
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::game::game::Game;
-use tic_tac_toe::players::game_mode::GameMode;
+use tic_tac_toe::game::game_mode::GameMode;
 use std::cell::Cell;
 
 #[test]

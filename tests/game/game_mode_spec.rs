@@ -1,6 +1,6 @@
 #[cfg(test)]
 
-use tic_tac_toe::players::game_mode::GameMode;
+use tic_tac_toe::game::game_mode::GameMode;
 use tic_tac_toe::players::human::Human;
 use tic_tac_toe::players::ai;
 use tic_tac_toe::core::marker::Marker;

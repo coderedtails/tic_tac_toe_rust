@@ -3,7 +3,7 @@ extern crate tic_tac_toe;
 use tic_tac_toe::io::display::Display;
 use tic_tac_toe::io::cli;
 use tic_tac_toe::game::game::Game;
-use tic_tac_toe::players::game_mode;
+use tic_tac_toe::game::game_mode;
 
 fn main() {
 

@@ -2,7 +2,6 @@ use core::board::Board;
 
 pub mod ai;
 pub mod human;
-pub mod game_mode;
 pub mod scripted_player;
 
 pub trait Player {
