@@ -26,4 +26,3 @@ pub fn new_with_moves(name: Marker, moves: Vec<uint>) -> ScriptedPlayer {
     ScriptedPlayer {  name: name,
                       moves: RefCell::new(moves) }
 }
-

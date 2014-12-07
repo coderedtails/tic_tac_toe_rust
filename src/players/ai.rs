@@ -17,8 +17,8 @@ pub fn new(name: Marker) -> Ai {
 
 impl Player for Ai {
     fn make_move(&self, board: Board) -> Board{
-        let best_move = &self.best_move(board);
-        board.make_move(*best_move, &self.name)
+        let best_move = self.best_move(board);
+        board.make_move(best_move, &self.name)
     }
 
     fn player_type(&self) -> String {

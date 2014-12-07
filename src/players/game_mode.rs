@@ -48,10 +48,10 @@ pub fn choose_game_mode<'a>(display: Display<Cli>) -> GameMode<'a> {
 }
 
 pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
-    [human_vs_human(display),
-     ai_vs_ai(),
-     human_vs_ai(display),
-     ai_vs_human(display)]
+    [human_vs_ai(display),
+     human_vs_human(display),
+     ai_vs_human(display),
+     ai_vs_ai()]
 }
 
 fn human_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {

@@ -22,7 +22,6 @@ impl Board {
         self.marks.iter().filter_map(keep_moves).collect()
     }
 
-
     pub fn winner(&self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
             let result = line.winner();
