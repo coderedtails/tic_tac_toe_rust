@@ -3,7 +3,7 @@ use std::cell::Cell;
 use io::display::Display;
 use io::cli::Cli;
 use core::marker::Marker;
-use players::ai::Ai;
+use players::ai;
 use players::human;
 
 pub struct GameMode<'a>{
@@ -56,12 +56,12 @@ pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
 
 fn human_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {
     let human = human::new(Marker::X, display);
-    let ai =  Ai { name: Marker::O };
+    let ai = ai::new(Marker::O);
     new(box human, box ai)
 }
 
 fn ai_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
-    let ai =  Ai { name: Marker::X };
+    let ai = ai::new(Marker::O);
     let human = human::new(Marker::O, display);
     new(box ai, box human)
 }
@@ -73,7 +73,7 @@ fn human_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
 }
 
 pub fn ai_vs_ai<'a>() -> GameMode<'a> {
-    let ai1 = Ai { name: Marker::X};
-    let ai2 = Ai { name: Marker::O};
+    let ai1 = ai::new(Marker::X);
+    let ai2 = ai::new(Marker::O);
     new(box ai1, box ai2)
 }

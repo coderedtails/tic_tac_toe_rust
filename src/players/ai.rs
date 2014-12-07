@@ -8,7 +8,7 @@ use std::rand;
 use std::rand::Rng;
 
 pub struct Ai {
-    pub name: Marker,
+    name: Marker,
 }
 
 pub fn new(name: Marker) -> Ai {
@@ -42,15 +42,6 @@ impl Ai {
         best_move
     }
 
-    fn shuffled(moves: Vec<uint>) -> Vec<uint> {
-        let mut v: Vec<uint> = moves;
-        {
-            let mut slice: &mut [uint] = &mut *v;
-            rand::task_rng().shuffle(slice);
-        }
-        v
-    }
-
     fn negamax(board: Board, alpha: int, beta: int, name: Marker) -> int {
         if board.is_finished() {
             Ai::value_of_board(board, name)
@@ -81,5 +72,14 @@ impl Ai {
             }
         }
         best_score
+    }
+
+    fn shuffled(moves: Vec<uint>) -> Vec<uint> {
+        let mut result: Vec<uint> = moves;
+        {
+            let mut slice: &mut [uint] = &mut *result;
+            rand::task_rng().shuffle(slice);
+        }
+        result
     }
 }
