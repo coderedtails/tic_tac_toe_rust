@@ -4,7 +4,7 @@ use io::display::Display;
 use io::cli::Cli;
 use core::marker::Marker;
 use players::ai::Ai;
-use players::human::Human;
+use players::human;
 
 pub struct GameMode<'a>{
     pub first:  Box<Player + 'a>,
@@ -55,20 +55,20 @@ pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
 }
 
 fn human_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {
-    let human = Human { name: Marker::X, display: display };
+    let human = human::new(Marker::X, display);
     let ai =  Ai { name: Marker::O };
     new(box human, box ai)
 }
 
 fn ai_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
     let ai =  Ai { name: Marker::X };
-    let human = Human { name: Marker::O, display: display };
+    let human = human::new(Marker::O, display);
     new(box ai, box human)
 }
 
 fn human_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
-    let human1 = Human { name: Marker::X, display: display };
-    let human2 = Human { name: Marker::O, display: display };
+    let human1 = human::new(Marker::X, display);
+    let human2 = human::new(Marker::O, display);
     new(box human1, box human2)
 }
 

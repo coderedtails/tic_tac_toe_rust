@@ -5,8 +5,8 @@ use players::Player;
 use io::IO;
 
 pub struct Human<P> {
-    pub name: Marker,
-    pub display: Display<P>,
+    name: Marker,
+    display: Display<P>,
 }
 
 impl<P: IO> Player for Human<P> {
@@ -19,6 +19,10 @@ impl<P: IO> Player for Human<P> {
         let choice = self.choose_move_from(possible_moves);
         board.make_move(choice, &self.name)
     }
+}
+
+pub fn new<P>(name: Marker, display: Display<P>) -> Human<P> {
+   Human { name: name, display: display }
 }
 
 impl<P: IO> Human<P> {
