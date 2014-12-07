@@ -13,7 +13,7 @@ pub struct GameMode<'a>{
 }
 
 impl<'a> GameMode<'a> {
-   pub fn next(&self) -> &Player {
+   pub fn next_player(&self) -> &Player {
        let val: uint = self.counter.get();
        let player: &Player = if val % 2 == 0 {
            &*self.first

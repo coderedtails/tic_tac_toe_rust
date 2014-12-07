@@ -12,7 +12,7 @@ pub struct Game<P> {
 impl <P: IO>Game<P>{
     pub fn play(&self, mode: GameMode) {
         let mut board = board::empty();
-        let mut current_player = mode.next();
+        let mut current_player = mode.next_player();
 
         loop {
             self.display.draw(board);
@@ -20,7 +20,7 @@ impl <P: IO>Game<P>{
             if board.is_finished() {
                 break;
             }
-            current_player = mode.next();
+            current_player = mode.next_player();
         }
 
         self.display.draw(board);
