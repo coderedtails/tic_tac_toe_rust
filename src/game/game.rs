@@ -1,4 +1,5 @@
 use core::board;
+use core::board::Board;
 use io::IO;
 use io::display::Display;
 use game::game_mode::GameMode;
@@ -23,12 +24,12 @@ impl <P: IO>Game<P>{
             current_player = mode.next_player();
         }
 
-        self.display.draw(board);
-        self.show_result(board.winner());
+        self.show_result(board);
     }
 
-    fn show_result (&self, game_result: WinnerResult) {
-        match game_result {
+    fn show_result (&self, board: Board) {
+        self.display.draw(board);
+        match board.winner() {
             WinnerResult::Winner(n) => self.display.announce_winner(n),
             WinnerResult::NoWinner => self.display.announce_draw(),
         }
