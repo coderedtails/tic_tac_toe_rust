@@ -1,7 +1,7 @@
 #[cfg(test)]
 
-use tic_tac_toe::players::Player;
 use tic_tac_toe::core::board;
+use tic_tac_toe::players::Player;
 
 #[test]
 fn applies_move_when_reading_valid_move() {

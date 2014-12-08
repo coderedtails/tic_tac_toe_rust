@@ -1,12 +1,12 @@
 #[cfg(test)]
 
+use tic_tac_toe::core::board;
+use tic_tac_toe::core::marker::Marker;
+use tic_tac_toe::core::slot::Slot;
+use tic_tac_toe::game::game_mode;
 use tic_tac_toe::io::cli_spy;
 use tic_tac_toe::io::display;
 use tic_tac_toe::io::display::Display;
-use tic_tac_toe::core::board;
-use tic_tac_toe::core::slot::Slot;
-use tic_tac_toe::core::marker::Marker;
-use tic_tac_toe::game::game_mode;
 
 #[test]
 fn prints_an_empty_board() {
@@ -67,7 +67,7 @@ fn requests_a_rematch_accepted() {
     let mut display = Display { cli: cli_spy, use_colour: false };
     let result = display.request_rematch();
     assert_eq!(result, true);
-    ::assert_printed(&mut display.cli, "Want a rematch? (Y/N)");
+    ::assert_printed(&mut display.cli, "Want to play again? (Y/N)");
 }
 
 #[test]
@@ -76,7 +76,7 @@ fn requests_a_rematch_denied() {
     let mut display = Display { cli: cli_spy, use_colour: false };
     let result = display.request_rematch();
     assert_eq!(result, false);
-    ::assert_printed(&mut display.cli, "Want a rematch? (Y/N)");
+    ::assert_printed(&mut display.cli, "Want to play again? (Y/N)");
 }
 
 #[test]

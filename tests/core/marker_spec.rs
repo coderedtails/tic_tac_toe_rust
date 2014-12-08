@@ -4,7 +4,10 @@ use tic_tac_toe::core::marker::Marker;
 
 #[test]
 fn opponent_of_x_is_o() {
-    let marker = Marker::X;
+    assert_eq!(Marker::O, Marker::X.opponent());
+}
 
-    assert_eq!(Marker::O, marker.opponent());
+#[test]
+fn opponent_of_o_is_x() {
+    assert_eq!(Marker::X, Marker::O.opponent());
 }

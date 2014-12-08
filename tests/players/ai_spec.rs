@@ -1,6 +1,5 @@
 #[cfg(test)]
 
-
 use tic_tac_toe::core::marker::Marker;
 use tic_tac_toe::players::ai::Ai;
 use tic_tac_toe::players::ai;

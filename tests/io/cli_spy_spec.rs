@@ -4,11 +4,11 @@ use tic_tac_toe::io::cli_spy;
 use tic_tac_toe::io::IO;
 
 #[test]
-fn line_with_three_x_has_winner() {
+fn cli_spy_stores_pritned_values() {
     let mut  spy = cli_spy::new();
-    spy.print("Hi there");
+    spy.print("sentinel value");
     match spy.last_line() {
-        Some(n) => assert_eq!("Hi there", n.as_slice()),
+        Some(line) => assert_eq!("sentinel value", line.as_slice()),
         None => panic!("No value"),
     }
 }

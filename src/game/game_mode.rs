@@ -1,10 +1,11 @@
-use players::Player;
-use std::cell::Cell;
-use io::display::Display;
-use io::cli::Cli;
 use core::marker::Marker;
+use io::cli::Cli;
+use io::display::Display;
 use players::ai;
 use players::human;
+use players::Player;
+
+use std::cell::Cell;
 
 pub struct GameMode<'a>{
     pub first:  Box<Player + 'a>,
@@ -62,7 +63,7 @@ fn human_vs_ai<'a>(display: Display<Cli>) -> GameMode<'a> {
 
 fn ai_vs_human<'a>(display: Display<Cli>) -> GameMode<'a> {
     let ai = ai::new(Marker::O);
-    let human = human::new(Marker::O, display);
+    let human = human::new(Marker::X, display);
     new(box ai, box human)
 }
 

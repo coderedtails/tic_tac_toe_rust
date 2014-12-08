@@ -1,8 +1,8 @@
-use std::cell::RefCell;
-
 use core::board::Board;
 use core::marker::Marker;
 use players::Player;
+
+use std::cell::RefCell;
 
 pub struct ScriptedPlayer {
     pub name: Marker,

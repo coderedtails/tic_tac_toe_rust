@@ -1,8 +1,8 @@
-use io::display::Display;
 use core::board::Board;
 use core::marker::Marker;
-use players::Player;
+use io::display::Display;
 use io::IO;
+use players::Player;
 
 pub struct Human<P> {
     name: Marker,
@@ -28,9 +28,9 @@ pub fn new<P>(name: Marker, display: Display<P>) -> Human<P> {
 impl<P: IO> Human<P> {
     fn choose_move_from(&self, moves: Vec<uint>) -> uint {
         loop {
-            let choice = &self.display.request_move();
-            if moves.contains(choice) {
-                return *choice
+            let choice = self.display.request_move();
+            if moves.contains(&choice) {
+                return choice
             }
         }
     }

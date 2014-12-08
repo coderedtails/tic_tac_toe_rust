@@ -1,10 +1,10 @@
-use io::IO;
-use core::marker::Marker;
+use ansi_term::Colour::{Red, Blue, White};
+
 use core::board::Board;
+use core::marker::Marker;
 use core::slot::Slot;
 use game::game_mode::GameMode;
-
-use ansi_term::Colour::{Red, Blue, White};
+use io::IO;
 
 pub struct Display<P> {
     pub cli: P,
@@ -30,11 +30,6 @@ impl<P: IO> Display<P> {
        self.cli.print(self.winner_line(winner).as_slice())
     }
 
-    fn winner_line(&self, winner: Marker) -> String {
-        format!("The winner was {}", winner.to_string())
-    }
-
-
     pub fn announce_draw(&self) {
         self.cli.print("There was a draw");
     }
@@ -46,9 +41,18 @@ impl<P: IO> Display<P> {
         }
     }
 
-    pub fn show_option<'a>(&self, modes: &GameMode<'a>, idx: uint) {
-        let line = format!("{}: {}", idx, modes.opponents_line());
+    pub fn show_option<'a>(&self, mode: &GameMode<'a>, idx: uint) {
+        let line = format!("{}: {}", idx, mode.opponents_line());
         self.cli.print(line.as_slice());
+    }
+
+    pub fn request_rematch(&self) -> bool {
+        self.cli.print("Want to play again? (Y/N)");
+        let input = self.cli.read();
+        match input.as_slice().trim() {
+            "Y" => true,
+            _ => false,
+        }
     }
 
     pub fn request_mode(&self) -> uint {
@@ -69,17 +73,12 @@ impl<P: IO> Display<P> {
         let raw: Option<uint> = from_str(input.as_slice().trim());
         match raw {
             Some(number) => number,
-            None => 100,
+            None => 1_000,
         }
     }
 
-    pub fn request_rematch(&self) -> bool {
-        self.cli.print("Want a rematch? (Y/N)");
-        let input = self.cli.read();
-        match input.as_slice().trim() {
-            "Y" => true,
-            _ => false,
-        }
+    fn winner_line(&self, winner: Marker) -> String {
+        format!("The winner was {}", winner.to_string())
     }
 
     fn render(&self, board: Board) -> Vec<String> {
