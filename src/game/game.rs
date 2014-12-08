@@ -1,13 +1,17 @@
 use core::board;
 use core::board::Board;
+use core::line::WinnerResult;
+use game::game_mode::GameMode;
 use io::IO;
 use io::display::Display;
-use game::game_mode::GameMode;
 use players::Player;
-use core::line::WinnerResult;
 
 pub struct Game<P> {
     pub display: Display<P>,
+}
+
+pub fn new<P>(display: Display<P>) -> Game<P> {
+    Game { display: display }
 }
 
 impl <P: IO>Game<P>{
@@ -30,7 +34,7 @@ impl <P: IO>Game<P>{
     fn show_result (&self, board: Board) {
         self.display.draw(board);
         match board.winner() {
-            WinnerResult::Winner(n) => self.display.announce_winner(n),
+            WinnerResult::Winner(mark) => self.display.announce_winner(mark),
             WinnerResult::NoWinner => self.display.announce_draw(),
         }
     }

@@ -2,7 +2,7 @@
 
 use tic_tac_toe::players::scripted_player;
 use tic_tac_toe::core::marker::Marker;
-use tic_tac_toe::game::game::Game;
+use tic_tac_toe::game::game;
 use tic_tac_toe::game::game_mode::GameMode;
 use std::cell::Cell;
 
@@ -15,7 +15,7 @@ fn runs_until_there_is_a_draw() {
 
     let game_mode = GameMode { first: box ai, second: box other, counter: Cell::new(0u) };
 
-    let mut game = Game { display: display};
+    let mut game = game::new(display);
     game.play(game_mode);
     ::assert_printed(&mut game.display.cli, "There was a draw");
 }
@@ -29,7 +29,7 @@ fn runs_until_there_is_a_winner() {
 
     let game_mode = GameMode { first: box ai, second: box other, counter: Cell::new(0u) };
 
-    let mut game = Game { display: display};
+    let mut game = game::new(display);
     game.play(game_mode);
     ::assert_printed(&mut game.display.cli, "The winner was X");
 }

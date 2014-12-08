@@ -9,10 +9,6 @@ pub enum WinnerResult {
     NoWinner,
 }
 
-pub fn empty() -> Line {
-    Line(None, None, None)
-}
-
 pub fn from_slots(first: Slot, second: Slot, third: Slot) -> Line {
     Line(convert(first), convert(second), convert(third))
 }
