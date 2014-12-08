@@ -6,15 +6,15 @@ use io::IO;
 use io::display::Display;
 use players::Player;
 
-pub struct Game<P> {
+pub struct GameRunner<P> {
     pub display: Display<P>,
 }
 
-pub fn new<P>(display: Display<P>) -> Game<P> {
-    Game { display: display }
+pub fn new<P>(display: Display<P>) -> GameRunner<P> {
+    GameRunner { display: display }
 }
 
-impl <P: IO>Game<P>{
+impl <P: IO>GameRunner<P>{
     pub fn play(&self, mode: GameMode) {
         let mut board = board::empty();
         let mut current_player = mode.next_player();
