@@ -3,7 +3,6 @@ use core::line::WinnerResult;
 use core::marker::Marker;
 use core::slot::Slot;
 
-
 #[deriving(Show, Clone, PartialEq)]
 pub struct Board {
     pub marks: [Slot,..9]
@@ -22,7 +21,7 @@ impl Board {
         self.marks.iter().filter_map(keep_moves).collect()
     }
 
-    pub fn winner(&self) -> WinnerResult {
+    pub fn winner(self) -> WinnerResult {
         for line in all_lines(&self.marks).into_iter() {
             let result = line.winner();
             match result {
@@ -33,21 +32,21 @@ impl Board {
         WinnerResult::NoWinner
     }
 
-    pub fn is_winner(&self, player: &Marker) -> bool {
+    pub fn is_winner(self, player: &Marker) -> bool {
         match self.winner() {
             WinnerResult::Winner(ref n) if n == player => true,
             _ => false,
         }
     }
 
-    fn has_winner(&self) -> bool {
+    fn has_winner(self) -> bool {
         match self.winner() {
             WinnerResult::Winner(_) => true,
             WinnerResult::NoWinner  => false,
         }
     }
 
-    pub fn make_move(&self, location: uint, player: &Marker) -> Board  {
+    pub fn make_move(self, location: uint, player: &Marker) -> Board  {
         let mut new_marks = self.marks.clone();
         new_marks[location-1] = Slot::Placed(*player);
         Board { marks: new_marks }
@@ -57,7 +56,7 @@ impl Board {
         self.marks.chunks(BOARD_SIZE).collect()
     }
 
-    pub fn value(&self) -> int {
+    pub fn value(self) -> int {
         if self.has_winner() {
             (self.remaining_moves().len() + 1) as int
         } else {
@@ -65,11 +64,11 @@ impl Board {
         }
     }
 
-    pub fn is_finished(&self) -> bool {
+    pub fn is_finished(self) -> bool {
         self.has_winner() || self.has_draw()
     }
 
-    pub fn has_draw(&self) -> bool {
+    pub fn has_draw(self) -> bool {
          self.remaining_moves().is_empty() && !self.has_winner()
     }
 }
