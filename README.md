@@ -66,4 +66,7 @@ If you have C/C++ background you might recognize some of these features and synt
     It makes a difference whether these methods implement a _Trait_ (interface) are regular methods.
     Trait are implemented `impl MyTrait for MyStruct {...}` while regular methods go `impl MyStruct {...}`.
 
-
+## Reading material
+* http://doc.rust-lang.org/guide.html General introduction into RUST and its concepts
+* http://doc.rust-lang.org/guide-strings.html The difference between `&str` and `String`
+* http://kmcg3413.net/aman/index.py?page=rust_ptr_layman.txt An overview of Rust pointers
