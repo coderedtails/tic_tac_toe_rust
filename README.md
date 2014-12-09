@@ -14,7 +14,11 @@ rustc 0.13.0-nightly (fac5a0767 2014-11-26 22:37:06 +0000)
 ```
 
 You can find an installer for Mac [here](https://www.dropbox.com/s/79xpgfkfhwt7rno/rust-nightly-x86_64-apple-darwin.pkg?dl=0).
-Install it by simply double clicking the file and then run
+Install it by simply double clicking the file.
+Should you get a warning about not being able to open the installer because its not signed, then proceed to disable the OSX' sandbox:
+System Preferences > Security and Privacy > General > Unlock (bottom left) and change _Allow apps downloaded from_ to _Anywhere_.
+
+Then open a Terminal and run
 `rustc --verison` from the command line. to make sure the version matches.
 
 The buildtool for Rust projects is [Cargo](https://github.com/rust-lang/cargo).
