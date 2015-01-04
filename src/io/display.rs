@@ -6,6 +6,7 @@ use core::slot::Slot;
 use game::game_mode::GameMode;
 use io::IO;
 
+#[derive(Copy)]
 pub struct Display<P> {
     pub cli: P,
     pub use_colour: bool,
@@ -70,7 +71,7 @@ impl<P: IO> Display<P> {
     }
 
     fn to_int(&self, input: String) -> uint {
-        let raw: Option<uint> = from_str(input.as_slice().trim());
+        let raw: Option<uint> = input.as_slice().trim().parse();
         match raw {
             Some(number) => number,
             None => 1_000,

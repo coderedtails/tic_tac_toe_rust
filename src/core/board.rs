@@ -3,7 +3,7 @@ use core::line::WinnerResult;
 use core::marker::Marker;
 use core::slot::Slot;
 
-#[derive(Show, Clone, PartialEq)]
+#[derive(Show, Clone, Copy, PartialEq)]
 pub struct Board {
     pub marks: [Slot; 9]
 }

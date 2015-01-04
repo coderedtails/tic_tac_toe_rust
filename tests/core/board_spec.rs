@@ -44,8 +44,8 @@ fn amount_of_remaining_moves_matches_number_of_empty() {
 #[test]
 fn making_a_move_returns_a_fresh_copy() {
     let changed_board = board::empty().make_move(1, &Marker::X);
-    assert!(!changed_board.remaining_moves().contains(&1u))
-    assert!(board::empty().remaining_moves().contains(&1u))
+    assert!(!changed_board.remaining_moves().contains(&1u));
+    assert!(board::empty().remaining_moves().contains(&1u));
 }
 
 #[test]

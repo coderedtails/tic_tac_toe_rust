@@ -1,4 +1,4 @@
-#[derive(Show, Clone, PartialEq)]
+#[derive(Show, Clone, Copy, PartialEq)]
 pub enum Marker {
     X,
     O,

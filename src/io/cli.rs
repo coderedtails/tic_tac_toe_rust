@@ -1,6 +1,7 @@
 use io::IO;
 use std::io;
 
+#[derive(Copy)]
 pub struct Cli;
 
 pub fn new() -> Cli {

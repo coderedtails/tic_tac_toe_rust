@@ -78,7 +78,7 @@ impl Ai {
         let mut result: Vec<uint> = moves;
         {
             let mut slice: &mut [uint] = &mut *result;
-            rand::task_rng().shuffle(slice);
+            rand::thread_rng().shuffle(slice);
         }
         result
     }
