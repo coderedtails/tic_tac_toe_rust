@@ -34,7 +34,7 @@ impl<P: IO> Display<P> {
         self.cli.print("There was a draw");
     }
 
-    pub fn show_options<'a>(&self, modes: &[GameMode<'a>, ..4]) {
+    pub fn show_options<'a>(&self, modes: &[GameMode<'a>; 4]) {
         self.clear_screen();
         for (idx, mode) in modes.iter().enumerate() {
             self.show_option(mode, idx);

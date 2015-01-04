@@ -5,7 +5,7 @@ use core::slot::Slot;
 
 #[deriving(Show, Clone, PartialEq)]
 pub struct Board {
-    pub marks: [Slot,..9]
+    pub marks: [Slot; 9]
 }
 
 pub static BOARD_SIZE: uint = 3;
@@ -88,19 +88,19 @@ fn all_lines(board: &[Slot]) ->Vec<line::Line> {
     lines
 }
 
-fn rows(board: &[Slot]) -> [line::Line, ..3]  {
+fn rows(board: &[Slot]) -> [line::Line; 3]  {
     [of(board, 0, 1 ,2),
      of(board, 3, 4 ,5),
      of(board, 6, 7 ,8)]
 }
 
-fn columns(board: &[Slot]) -> [line::Line, ..3]  {
+fn columns(board: &[Slot]) -> [line::Line; 3]  {
     [of(board, 0, 3 ,6),
      of(board, 1, 4 ,7),
      of(board, 2, 5 ,8)]
 }
 
-fn diagonals(board: &[Slot]) -> [line::Line, ..2]  {
+fn diagonals(board: &[Slot]) -> [line::Line; 2]  {
     [of(board, 0, 4 ,8),
      of(board, 6, 4 ,2)]
 }

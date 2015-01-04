@@ -48,7 +48,7 @@ pub fn choose_game_mode<'a>(display: Display<Cli>) -> GameMode<'a> {
     }
 }
 
-pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>, ..4] {
+pub fn create_game_modes<'a>(display: Display<Cli>) -> [GameMode<'a>; 4] {
     [human_vs_ai(display),
      human_vs_human(display),
      ai_vs_human(display),
