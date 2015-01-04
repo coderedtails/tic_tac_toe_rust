@@ -1,6 +1,6 @@
 use core::marker::Marker;
 
-#[deriving(Show, Clone, PartialEq)]
+#[derive(Show, Clone, PartialEq)]
 pub enum Slot {
     Placed(Marker),
     Move(uint)
