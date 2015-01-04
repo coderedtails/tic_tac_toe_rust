@@ -3,8 +3,8 @@ name = "tic_tac_toe"
 version = "0.0.1"
 authors = ["Felipe Sere <felipesere@gmail.com>"]
 
-[dependencies]
-ansi_term = "~0.3.0"
+[dependencies.ansi_term]
+git = "https://github.com/ogham/rust-ansi-term"
 
 [[bin]]
 name = "tic_tac_toe"

@@ -2,11 +2,11 @@
 name = "tic_tac_toe"
 version = "0.0.1"
 dependencies = [
- "ansi_term 0.3.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "ansi_term 0.4.0 (git+https://github.com/ogham/rust-ansi-term)",
 ]
 
 [[package]]
 name = "ansi_term"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
+version = "0.4.0"
+source = "git+https://github.com/ogham/rust-ansi-term#df6fcf773bae488c2c3a1456295531d6803e638a"
 
