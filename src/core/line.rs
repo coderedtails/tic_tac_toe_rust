@@ -2,7 +2,9 @@ use core::marker::Marker;
 use core::slot::Slot;
 
 #[derive(Clone)]
-pub struct Line(pub Option<Marker>, pub Option<Marker>, pub Option<Marker>);
+pub struct Line(pub Option<Marker>,
+                pub Option<Marker>,
+                pub Option<Marker>);
 
 pub enum WinnerResult {
     Winner(Marker),

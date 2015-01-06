@@ -17,4 +17,3 @@ impl IO for Cli {
         io::stdin().read_line().ok().expect("Failed to read line")
     }
 }
-

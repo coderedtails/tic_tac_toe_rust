@@ -6,7 +6,7 @@ use core::slot::Slot;
 use game::game_mode::GameMode;
 use io::IO;
 
-#[derive(Copy)]
+#[derive(Copy, PartialEq)]
 pub struct Display<P> {
     pub cli: P,
     pub use_colour: bool,
